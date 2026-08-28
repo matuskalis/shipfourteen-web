@@ -1,0 +1,1331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ShipFourteen. Websites shipped in fourteen days</title>
+<meta name="description" content="ShipFourteen designs and builds your website in fourteen days. Fixed scope, fixed timeline, you own everything.">
+<link rel="canonical" href="https://shipfourteen.com/">
+<meta name="theme-color" content="#04060D">
+
+<link rel="icon" href="./favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="./apple-touch-icon.png">
+
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://shipfourteen.com/">
+<meta property="og:site_name" content="ShipFourteen">
+<meta property="og:title" content="Websites shipped in fourteen days">
+<meta property="og:description" content="Fixed scope, fixed timeline, no retainer. You own the code, the domain and the hosting on day fourteen.">
+<meta property="og:image" content="https://shipfourteen.com/assets/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="ShipFourteen. Websites shipped in fourteen days.">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Websites shipped in fourteen days">
+<meta name="twitter:description" content="Fixed scope, fixed timeline, no retainer. You own the code, the domain and the hosting on day fourteen.">
+<meta name="twitter:image" content="https://shipfourteen.com/assets/og.jpg">
+<link rel="preload" as="font" type="font/woff2" href="./fonts/inter-latin.woff2" crossorigin>
+<link rel="preload" as="image" href="./assets/moon-color.webp" crossorigin fetchpriority="low">
+<style>
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 300 600;
+  font-display: swap;
+  src: url('./fonts/inter-latin.woff2') format('woff2');
+  unicode-range: U+0020-007E, U+00A0-00FF, U+2013-2014, U+2018-2019, U+201C-201D, U+2022, U+2026, U+2039-203A, U+20AC, U+2122, U+2192, U+2713, U+00D7;
+}
+
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 300 600;
+  font-display: swap;
+  src: url('./fonts/inter-latin-ext.woff2') format('woff2');
+  unicode-range: U+0160-0161;
+}
+
+:root {
+  --bg: #04060D;
+  --surface: #121114;
+  --surface-top: #2A2930;
+  --line: #2D2B31;
+  --text: #FFFFFF;
+  --text-2: #E2E6EC;
+  --text-3: #8D8D9C;
+  --text-4: rgba(255,255,255,0.5);
+  --dot: #FF5555;
+
+  --r-card: 24px;
+  --r-pill: 48px;
+  --r-badge: 70px;
+
+  --s-1: 4px;
+  --s-2: 8px;
+  --s-3: 16px;
+  --s-4: 24px;
+  --s-5: 40px;
+  --s-6: 48px;
+  --s-7: 64px;
+  --s-section: 200px;
+
+  --ease: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html {
+  -webkit-text-size-adjust: 100%;
+  overflow-x: clip;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-size: 15px;
+  line-height: 1.5;
+  letter-spacing: -0.2px;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+a { color: inherit; text-decoration: none; }
+img, svg { display: block; max-width: 100%; }
+
+:focus-visible {
+  outline: 2px solid #E9E8FD;
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* ---------- type scale ---------- */
+
+.display-xl,
+.display-l {
+  font-weight: 600;
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+.display-xl {
+  font-size: 72px;
+  line-height: 1.02;
+  letter-spacing: -2.9px;
+  background-image: linear-gradient(355deg, rgba(255,255,255,0.42), #FFFFFF 73%);
+}
+
+.display-xl.closing {
+  font-size: 110px;
+  line-height: 1.1;
+  letter-spacing: -2.2px;
+  background-image: linear-gradient(162deg, rgba(255,255,255,0.9) 19%, rgba(255,255,255,0.1));
+}
+
+.display-l {
+  font-size: 64px;
+  line-height: 1.1;
+  letter-spacing: -1.28px;
+  background-image: linear-gradient(7deg, #555464, #E9E8FD 75%);
+  padding-bottom: 9px;
+}
+
+.display-m {
+  font-size: 36px;
+  font-weight: 600;
+  line-height: 1.11;
+  letter-spacing: -0.72px;
+  color: var(--text);
+}
+
+.lead     { font-size: 20px; font-weight: 300; line-height: 1.5; color: var(--text); }
+.body-l   { font-size: 20px; font-weight: 400; line-height: 1.5; color: var(--text); }
+.body     { font-size: 18px; font-weight: 300; line-height: 1.5; color: var(--text); }
+.body-s   { font-size: 15px; font-weight: 400; line-height: 1.5; color: var(--text-3); }
+.meta     { font-size: 14px; font-weight: 400; line-height: 1.5; color: var(--text-2); }
+.meta-dim { font-size: 14px; font-weight: 400; line-height: 1.5; color: var(--text-3); }
+.micro    { font-size: 12px; font-weight: 400; line-height: 1.5; color: var(--text-3); }
+
+.label {
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 1.5;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--text);
+}
+
+/* ---------- layout ---------- */
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--s-section);
+  width: 100%;
+  padding-bottom: 60px;
+  position: relative;
+  z-index: 1;
+}
+
+.section {
+  width: 1000px;
+  max-width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--s-6);
+  padding: 0 24px;
+  text-align: center;
+}
+
+.section-head {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--s-3);
+  max-width: 700px;
+}
+
+.section-head .body-s { font-size: 20px; font-weight: 300; color: var(--text-3); }
+
+/* ---------- hero ---------- */
+
+.hero {
+  width: 100%;
+  max-width: 100%;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  position: relative;
+  overflow: hidden;
+  text-align: left;
+}
+
+.hero-stage {
+  position: absolute;
+  inset: -1px -1px -1px auto;
+  width: 62%;
+  min-width: 620px;
+  z-index: 0;
+}
+.hero-stage canvas {
+  width: 100%;
+  height: 100%;
+  display: block;
+  outline: none;
+  cursor: grab;
+  touch-action: none;
+  user-select: none;
+  -webkit-user-select: none;
+  opacity: 0;
+  transition: opacity 0.9s ease-in-out;
+}
+.hero-stage canvas.ready { opacity: 1; }
+
+.stage-hint {
+  position: absolute;
+  right: 40px;
+  bottom: 40px;
+  z-index: 2;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--text-3);
+  padding: 8px 16px;
+  border-radius: var(--r-badge);
+  border: 1px solid var(--line);
+  background: rgba(0,0,0,0.4);
+  pointer-events: none;
+  transition: opacity 0.6s ease-in-out, transform 0.6s ease-in-out;
+}
+.stage-hint.done { opacity: 0; transform: translateY(6px); }
+
+body.dragging,
+body.dragging * {
+  user-select: none;
+  -webkit-user-select: none;
+  cursor: grabbing !important;
+}
+
+.hero-veil {
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 74%;
+  z-index: 1;
+  pointer-events: none;
+  background: linear-gradient(to right, var(--bg) 0, var(--bg) 46%, rgba(4,6,13,0.88) 66%, rgba(4,6,13,0));
+}
+
+.hero-inner {
+  position: relative;
+  z-index: 2;
+  pointer-events: none;
+  width: 1188px;
+  max-width: 100%;
+  padding: 120px 24px 64px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: var(--s-6);
+  align-items: flex-start;
+}
+
+/* the column spans the full width for layout, so only its blocks take clicks */
+.hero-inner > * { pointer-events: auto; }
+
+.logo {
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--text);
+}
+.logo span { color: var(--text-3); font-weight: 500; }
+
+.hero-stack {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--s-5);
+  width: 620px;
+  max-width: 100%;
+}
+
+.hero-copy {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--s-3);
+}
+
+.hero .lead { color: var(--text-2); max-width: 480px; }
+
+.buttons {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  gap: var(--s-3);
+  flex-wrap: wrap;
+}
+
+/* ---------- buttons ---------- */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--s-3);
+  padding: 16px 24px;
+  border-radius: var(--r-pill);
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 20px;
+  letter-spacing: normal;
+  border: 1px solid transparent;
+  transition: 0.3s ease-in-out;
+  cursor: pointer;
+}
+
+.btn-primary {
+  background: #FFFFFF;
+  color: #000000;
+}
+.btn-primary:hover { background: var(--text-2); }
+
+.btn-secondary {
+  background-image: linear-gradient(#121114, #2E2B35);
+  color: var(--text);
+  border-color: var(--line);
+}
+.btn-secondary:hover { background-image: linear-gradient(#1A181D, #3A3644); }
+
+.btn-ghost {
+  background: transparent;
+  color: var(--text);
+  border-color: var(--line);
+  font-size: 15px;
+}
+.btn-ghost:hover { border-color: #4A4752; }
+
+/* ---------- status badge ---------- */
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--s-2);
+  padding: 8px 16px 8px 12px;
+  border-radius: var(--r-badge);
+  background: rgba(0,0,0,0.4);
+  border: 1px solid var(--line);
+}
+.badge .dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 100px;
+  background: var(--dot);
+  flex: none;
+}
+
+/* ---------- proof row ---------- */
+
+.proof {
+  width: 100%;
+  max-width: 700px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  gap: var(--s-3) var(--s-4);
+  padding: 0;
+}
+.proof span {
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0.4px;
+  color: var(--text-3);
+  opacity: 0.85;
+}
+
+/* ---------- cards ---------- */
+
+.grid-3 {
+  display: grid;
+  grid-template-columns: repeat(3, 304px);
+  gap: var(--s-4);
+  justify-content: center;
+}
+
+.grid-2 {
+  display: grid;
+  grid-template-columns: repeat(2, 468px);
+  gap: var(--s-4);
+  justify-content: center;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--s-3);
+  padding: var(--s-4);
+  border-radius: var(--r-card);
+  background: var(--surface);
+  border: 1px solid var(--line);
+  text-align: left;
+}
+
+.card .body-l { font-size: 20px; font-weight: 400; }
+
+.card-num {
+  width: 40px;
+  height: 40px;
+  border-radius: 100px;
+  background: linear-gradient(to top, var(--surface-top), var(--surface));
+  border: 1px solid var(--line);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text-2);
+  flex: none;
+}
+
+.card-work {
+  justify-content: space-between;
+  gap: var(--s-4);
+}
+
+.card-work .shot {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
+  object-position: top center;
+  border-radius: 16px;
+  border: 1px solid var(--line);
+  background: var(--bg);
+}
+.card-work .top {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-3);
+}
+.tag {
+  display: inline-flex;
+  padding: 6px 12px;
+  border-radius: 100px;
+  border: 1px solid var(--line);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.4px;
+  color: var(--text-3);
+}
+
+.card-step { gap: var(--s-4); }
+.step-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  gap: var(--s-3);
+}
+
+/* ---------- statement card ---------- */
+
+.section.wide { width: 1048px; }
+
+.statement {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--s-7);
+  padding: 72px 64px;
+  border-radius: var(--r-card);
+  background: var(--surface);
+  border: 1px solid var(--line);
+  text-align: left;
+}
+
+.statement .display-l {
+  font-size: 62px;
+  line-height: 0.98;
+  letter-spacing: -2.4px;
+  padding-bottom: 4px;
+  flex: none;
+}
+
+.statement .body-s {
+  font-size: 17px;
+  line-height: 1.6;
+  max-width: 420px;
+  color: var(--text-3);
+  padding-top: 10px;
+}
+
+/* ---------- faq ---------- */
+
+.faq {
+  width: 600px;
+  max-width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-4);
+}
+
+.faq details {
+  border-radius: var(--r-card);
+  background: var(--surface);
+  border: 1px solid var(--line);
+  overflow: hidden;
+}
+
+.faq summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s-4);
+  padding: var(--s-4);
+  min-height: 80px;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 1.5;
+  text-align: left;
+  cursor: pointer;
+  list-style: none;
+  transition: 0.3s ease-in-out;
+}
+.faq summary::-webkit-details-marker { display: none; }
+.faq summary:hover { color: var(--text-2); }
+
+.faq .chev {
+  width: 20px;
+  height: 20px;
+  flex: none;
+  transition: transform 0.3s ease-in-out;
+  color: var(--text-3);
+}
+.faq details[open] .chev { transform: rotate(180deg); }
+
+.faq .answer {
+  padding: 0 var(--s-4) var(--s-4);
+  text-align: left;
+  color: var(--text-3);
+  font-size: 15px;
+  line-height: 1.5;
+}
+
+/* ---------- closing ---------- */
+
+.closing {
+  position: relative;
+  width: 700px;
+  max-width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--s-5);
+  padding: 0 24px;
+  text-align: center;
+}
+
+footer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--s-2);
+  font-size: 13px;
+  color: var(--text-4);
+  text-align: center;
+}
+footer a {
+  display: inline-block;
+  padding: 13px 10px;
+  margin: -13px -10px;
+  color: var(--text-3);
+  transition: 0.3s ease-in-out;
+}
+footer a:hover { color: var(--text); }
+
+/* ---------- atmosphere ---------- */
+
+.glow {
+  position: absolute;
+  top: 50%;
+  right: 12%;
+  transform: translate(50%, -50%);
+  width: min(1100px, 118vw);
+  height: min(1100px, 118vw);
+  background: radial-gradient(ellipse at center, rgba(233,232,253,0.10), rgba(4,6,13,0) 62%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.closing > h2, .closing > a { position: relative; z-index: 1; }
+
+.closing-glow {
+  position: absolute;
+  top: -140px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(900px, 100vw);
+  height: min(500px, 78vw);
+  background: radial-gradient(ellipse at center, rgba(233,232,253,0.07), rgba(4,6,13,0) 70%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ---------- responsive ---------- */
+
+@media (max-width: 991px) {
+  .wrapper { gap: 120px; }
+  .display-xl { font-size: 60px; letter-spacing: -2.2px; }
+  .display-xl.closing { font-size: 64px; }
+  .display-xl.closing { letter-spacing: -1.6px; }
+  .display-l { font-size: 44px; letter-spacing: -0.9px; }
+  .display-m { font-size: 30px; }
+  .grid-3 { grid-template-columns: repeat(2, minmax(0, 1fr)); width: 100%; }
+  .section.wide { width: 1000px; }
+  .statement { flex-direction: column; gap: var(--s-4); padding: 48px 32px; }
+  .statement .display-l { font-size: 48px; letter-spacing: -1.8px; }
+  .statement .body-s { padding-top: 0; max-width: 100%; }
+  .grid-2 { grid-template-columns: minmax(0, 1fr); width: 100%; }
+  .section { gap: var(--s-5); }
+  .hero { min-height: auto; flex-direction: column; }
+  .hero-stage {
+    position: relative;
+    inset: auto;
+    width: calc(100% + 2px);
+    min-width: 0;
+    margin: 0 -1px;
+    height: 420px;
+    order: 2;
+    /* fades the canvas block into the page instead of ending on a hard edge */
+    mask-image: linear-gradient(to bottom, transparent, #000 14%, #000 86%, transparent);
+    -webkit-mask-image: linear-gradient(to bottom, transparent, #000 14%, #000 86%, transparent);
+  }
+  /* stacked layout puts the text above the planet, so nothing needs veiling */
+  .hero-veil { display: none; }
+  .hero-inner { order: 1; padding: 100px 24px 24px; gap: var(--s-5); }
+  .glow { top: 30%; right: 50%; width: 760px; height: 760px; }
+  .stage-hint { right: 24px; bottom: 24px; }
+  .proof { gap: 12px 24px; max-width: 100%; }
+}
+
+@media (max-width: 600px) {
+  .display-xl { font-size: 40px; letter-spacing: -1.6px; }
+  .display-xl.closing { font-size: 40px; }
+  .display-xl.closing { letter-spacing: -1.2px; }
+  .display-l { font-size: 32px; letter-spacing: -0.6px; }
+  .lead, .section-head .body-s { font-size: 17px; }
+  .display-l { background-image: linear-gradient(7deg, #8E8DA0, #E9E8FD 60%); }
+  .grid-3 { grid-template-columns: minmax(0, 1fr); }
+  .statement { padding: 40px 24px; }
+  .hero-stage { height: 380px; }
+  .statement .display-l { font-size: 38px; letter-spacing: -1.4px; }
+  .buttons { width: 100%; flex-direction: column; align-items: stretch; }
+  .btn { width: 100%; }
+  .wrapper { gap: 96px; }
+  .faq summary { font-size: 16px; }
+  .buttons .btn { width: 100%; }
+  .proof { gap: 12px 20px; justify-content: center; }
+  .proof span { font-size: 13px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * { animation: none !important; transition: none !important; }
+}
+</style>
+</head>
+<body>
+
+<main class="wrapper">
+
+  <!-- hero -->
+  <header class="hero">
+    <div class="hero-stage">
+      <canvas id="moon-stage" tabindex="0" role="button" aria-label="Release the debris ring around the planet"></canvas>
+      <span class="stage-hint" id="moon-hint">Click the planet</span>
+    </div>
+    <div class="glow" aria-hidden="true"></div>
+    <div class="hero-veil" aria-hidden="true"></div>
+
+    <div class="hero-inner">
+      <div class="logo">Ship<span>Fourteen</span></div>
+
+      <div class="hero-stack">
+        <div class="hero-copy">
+          <h1 class="display-xl">Websites shipped<br>in fourteen days</h1>
+          <p class="lead">Fixed scope, fixed timeline, no retainer. You own the code, the domain and the hosting on day fourteen.</p>
+        </div>
+
+        <div class="buttons">
+          <a class="btn btn-primary" href="#work">See recent work</a>
+          <a class="btn btn-secondary" href="https://cal.com/matuskalis/scoping-call" target="_blank" rel="noopener">Book a call</a>
+        </div>
+
+        <div class="badge">
+          <span class="dot" aria-hidden="true"></span>
+          <span class="label">Currently taking new projects</span>
+        </div>
+      </div>
+
+      <div class="proof">
+        <span>VALORtech.AI</span>
+        <span>Tharseo IT</span>
+        <span>Sentinel VI</span>
+        <span>SPPK</span>
+        <span>Awesome by Choice</span>
+        <span>Legal Systems</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- work -->
+  <section class="section" id="work">
+    <div class="section-head">
+      <h2 class="display-l">Recent work</h2>
+      <p class="body-s">Sites built end to end. Design, build, content, launch.</p>
+    </div>
+
+    <div class="grid-3">
+      <article class="card card-work">
+        <img class="shot" src="./assets/work-valortech.webp" alt="VALORtech.AI home page: a large headline over a network diagram, with a dark compliance status panel on the right" width="640" height="400" loading="lazy" decoding="async">
+        <div class="top">
+          <div class="body-l">VALORtech.AI</div>
+          <div class="body-s">Marketing site for a US federal AI and data engineering contractor. Built to survive procurement scrutiny and load on government networks.</div>
+        </div>
+        <span class="tag">Next.js</span>
+      </article>
+
+      <article class="card card-work">
+        <img class="shot" src="./assets/work-tharseo.webp" alt="Tharseo IT home page: lime green Oracle Cloud headline over a dark halftone background, with a row of result figures" width="640" height="400" loading="lazy" decoding="async">
+        <div class="top">
+          <div class="body-l">Tharseo IT</div>
+          <div class="body-s">Motion led scroll for an IT services firm, with the animation libraries loaded on demand instead of on every page.</div>
+        </div>
+        <span class="tag">Next.js, GSAP</span>
+      </article>
+
+      <article class="card card-work">
+        <img class="shot" src="./assets/work-sppk.webp" alt="SPPK home page: the lead article with a photograph, a full topic menu above it and a sidebar of most-read stories" width="640" height="400" loading="lazy" decoding="async">
+        <div class="top">
+          <div class="body-l">SPPK</div>
+          <div class="body-s">Full rebuild of a Slovak trade association site. Navigation and content restructured before a single pixel was drawn.</div>
+        </div>
+        <span class="tag">Rebuild</span>
+      </article>
+    </div>
+
+    <a class="btn btn-ghost" href="https://cal.com/matuskalis/scoping-call" target="_blank" rel="noopener">Ask for the full portfolio</a>
+  </section>
+
+  <!-- statement -->
+  <section class="section wide" id="craft">
+    <div class="statement">
+      <h2 class="display-l">Built<br>from scratch.</h2>
+      <p class="body-s">Every site is assembled by hand, from the layout down to the last shader. Nothing bought off a marketplace, nothing you outgrow in six months. When the brief changes in month four, you change the code, not the subscription.</p>
+    </div>
+  </section>
+
+  <!-- what you get -->
+  <section class="section">
+    <div class="section-head">
+      <h2 class="display-l">What you get</h2>
+      <p class="body-s">One scope, one price, one date. Nothing to renegotiate halfway through.</p>
+    </div>
+
+    <div class="grid-3">
+      <article class="card">
+        <div class="card-num"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="20" height="20" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="3"/><path d="M8 3v4M16 3v4M3 11h18"/></svg></div>
+        <div class="body-l">Fourteen days to live</div>
+        <div class="body-s">Kickoff on day one, your site answering on your domain on day fourteen. The date is in the contract, not in a status update.</div>
+      </article>
+
+      <article class="card">
+        <div class="card-num"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="20" height="20" aria-hidden="true"><path d="M17 6.5A6 6 0 1 0 17 17.5"/><path d="M4 10.5h9M4 13.5h9"/></svg></div>
+        <div class="body-l">Fixed price, quoted first</div>
+        <div class="body-s">You get a written scope and a number before anything starts. No hourly billing, no change order for a paragraph rewrite.</div>
+      </article>
+
+      <article class="card">
+        <div class="card-num"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="20" height="20" aria-hidden="true"><path d="M15.5 8.5a4 4 0 1 0-4 4"/><path d="M11.5 12.5 5 19v2.5h3v-2h2v-2h2l1.5-1.5"/></svg></div>
+        <div class="body-l">You own everything</div>
+        <div class="body-s">Repo, domain, hosting and analytics live in your accounts. Leave whenever you want and take all of it with you.</div>
+      </article>
+
+      <article class="card">
+        <div class="card-num"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="20" height="20" aria-hidden="true"><path d="M12 3 3 8l9 5 9-5-9-5Z"/><path d="m3 14 9 5 9-5"/></svg></div>
+        <div class="body-l">No page builder underneath</div>
+        <div class="body-s">Hand built pages, no template plugin stack to keep paying for. What ships is what runs.</div>
+      </article>
+
+      <article class="card">
+        <div class="card-num"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="20" height="20" aria-hidden="true"><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L8 18l-4 1 1-4 11.5-11.5Z"/></svg></div>
+        <div class="body-l">Copy included</div>
+        <div class="body-s">Words are part of the build, not homework you get handed on day twelve. English or Slovak.</div>
+      </article>
+
+      <article class="card">
+        <div class="card-num"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="20" height="20" aria-hidden="true"><path d="M20 7 10 17l-5-5"/></svg></div>
+        <div class="body-l">Two weeks of fixes</div>
+        <div class="body-s">Fourteen days of bug fixes after launch, included. Whatever breaks, I fix it.</div>
+      </article>
+    </div>
+  </section>
+
+  <!-- process -->
+  <section class="section">
+    <div class="section-head">
+      <h2 class="display-l">How it runs</h2>
+      <p class="body-s">Three steps. You are in exactly two meetings.</p>
+    </div>
+
+    <div class="grid-3">
+      <article class="card card-step">
+        <div class="step-head">
+          <div class="display-m">01</div>
+          <span class="tag">Day 00</span>
+        </div>
+        <div class="body-l">Scoping call</div>
+        <div class="body-s">Thirty minutes. We agree what the site has to do and who it has to convince. You get the scope and the fixed price in writing within a day.</div>
+      </article>
+
+      <article class="card card-step">
+        <div class="step-head">
+          <div class="display-m">02</div>
+          <span class="tag">Day 01 to 11</span>
+        </div>
+        <div class="body-l">Build</div>
+        <div class="body-s">Design and code together, on a live preview URL you can open any time. One review at the midpoint, so nothing lands as a surprise.</div>
+      </article>
+
+      <article class="card card-step">
+        <div class="step-head">
+          <div class="display-m">03</div>
+          <span class="tag">Day 12 to 14</span>
+        </div>
+        <div class="body-l">Launch</div>
+        <div class="body-s">Domain, analytics, forms and handover docs. Your team gets the keys, plus two weeks of fixes on me.</div>
+      </article>
+    </div>
+  </section>
+
+  <!-- faq -->
+  <section class="section">
+    <div class="section-head">
+      <h2 class="display-l">Questions</h2>
+    </div>
+
+    <div class="faq">
+      <details>
+        <summary>
+          What if fourteen days is not enough for my site?
+          <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+        </summary>
+        <div class="answer">Then we cut the first release down to what fits, and the rest becomes a second sprint. A real site live in two weeks beats a perfect one still in review after two quarters.</div>
+      </details>
+
+      <details>
+        <summary>
+          Who writes the content?
+          <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+        </summary>
+        <div class="answer">I do, from the scoping call and whatever you already have. You review and correct the facts. If you would rather write it yourself, that works too and the price drops.</div>
+      </details>
+
+      <details>
+        <summary>
+          Can we edit the site ourselves afterwards?
+          <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+        </summary>
+        <div class="answer">Yes. If you need to change text and images regularly, we wire in a CMS during the build and you get a short handover walkthrough. If the site is static by nature, we skip the CMS and skip its cost.</div>
+      </details>
+
+      <details>
+        <summary>
+          What does it cost?
+          <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+        </summary>
+        <div class="answer">It depends on how many pages and how much of the content already exists, so I quote it after the call rather than posting a number that fits nobody. Half upfront, half on launch.</div>
+      </details>
+
+      <details>
+        <summary>
+          We already have a site. Can you rebuild it?
+          <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+        </summary>
+        <div class="answer">That is most of the work I do. We keep what already earns its place, restructure what does not, and move you off whatever is slowing the current site down.</div>
+      </details>
+    </div>
+  </section>
+
+  <!-- closing -->
+  <section class="closing">
+    <div class="closing-glow" aria-hidden="true"></div>
+    <h2 class="display-xl closing">Let’s ship yours</h2>
+    <a class="btn btn-primary" href="https://cal.com/matuskalis/scoping-call" target="_blank" rel="noopener">Book a call</a>
+  </section>
+
+  <footer>
+    <div>© 2026 ShipFourteen. Built by Matúš Kališ.</div>
+    <div><a href="mailto:m3kalis@gmail.com">m3kalis@gmail.com</a></div>
+  </footer>
+
+</main>
+
+
+
+
+
+<script type="importmap">
+{
+  "imports": {
+    "three": "./vendor/three.module.js",
+    "three/addons/controls/OrbitControls.js": "./vendor/OrbitControls.js"
+  }
+}
+</script>
+
+<script type="module">
+async function boot() {
+  const canvas = document.getElementById('moon-stage');
+  if (!canvas) return;
+
+  const [THREE, { OrbitControls }] = await Promise.all([
+    import('three'),
+    import('three/addons/controls/OrbitControls.js')
+  ]);
+
+  const RADIUS = 2.0;
+  const ASTEROID_COUNT = 75;
+  const INFLUENCE_COUNT = 24; // only the biggest asteroids push particles around
+  const MOON_COLOR = './assets/moon-color.webp';
+  const MOON_BUMP = './assets/moon-bump.webp';
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const particleCount = window.innerWidth < 992 ? 12000 : 30000;
+
+  // 'hidden' | 'animating' | 'visible'
+  let ringState = reduce ? 'visible' : 'hidden';
+
+  // asteroid positions + radius, shared with the ring shader
+  const massiveAsteroids = new Float32Array(ASTEROID_COUNT * 4);
+
+  const stage = canvas.parentElement;
+  const dpr = Math.min(window.devicePixelRatio || 1, 1.5);
+  const renderer = new THREE.WebGLRenderer({
+    canvas: canvas,
+    antialias: true,
+    alpha: true,
+    powerPreference: 'high-performance'
+  });
+  renderer.setPixelRatio(dpr);
+  renderer.setClearAlpha(0);
+
+  const scene = new THREE.Scene();
+  const camera = new THREE.PerspectiveCamera(45, 1, 0.1, 100);
+  camera.position.set(0, 2.7, 9.4);
+
+  scene.add(new THREE.HemisphereLight(0xE9E8FD, 0x04060D, 0.16));
+  scene.add(new THREE.AmbientLight(0xffffff, 0.03));
+
+  const key = new THREE.DirectionalLight(0xffffff, 2.6);
+  key.position.set(7, 4, 6);
+  scene.add(key);
+
+  const fill = new THREE.DirectionalLight(0x4a90e2, 0.12);
+  fill.position.set(-6, -2, -4);
+  scene.add(fill);
+
+  const controls = new OrbitControls(camera, canvas);
+  controls.enableZoom = false;
+  controls.enablePan = false;
+  controls.enableDamping = true;
+
+  // everything sits in one tilted group
+  const group = new THREE.Group();
+  group.rotation.x = Math.PI / 8;
+  scene.add(group);
+
+  const loader = new THREE.TextureLoader();
+  const maxAniso = renderer.capabilities.getMaxAnisotropy();
+
+  const texture = loader.load(MOON_COLOR);
+  texture.colorSpace = THREE.SRGBColorSpace;
+  texture.anisotropy = maxAniso;
+
+  // LOLA elevation model, so craters catch the light for real
+  const bump = loader.load(MOON_BUMP);
+  bump.anisotropy = maxAniso;
+
+  // ---- moon ----
+  const moon = new THREE.Mesh(
+    new THREE.SphereGeometry(RADIUS, 128, 64),
+    new THREE.MeshStandardMaterial({ map: texture, bumpMap: bump, bumpScale: 5, roughness: 0.9, metalness: 0 })
+  );
+  moon.rotation.z = 0.22;
+  group.add(moon);
+
+  // ---- particle ring ----
+  const positions = new Float32Array(particleCount * 3);
+  const colors = new Float32Array(particleCount * 3);
+  const randoms = new Float32Array(particleCount);
+
+  for (let i = 0; i < particleCount; i++) {
+    const angle = Math.random() * Math.PI * 2;
+    const rDist = Math.pow(Math.random(), 1.5);
+    const radius = 2.2 + rDist * 2.2;
+    const thickness = 0.4 - rDist * 0.2;
+    const ySpread = Math.random() + Math.random() + Math.random() - 1.5;
+
+    positions[i * 3] = Math.cos(angle) * radius;
+    positions[i * 3 + 1] = ySpread * thickness;
+    positions[i * 3 + 2] = Math.sin(angle) * radius;
+
+    const intensity = 1.0 - rDist;
+    const roll = Math.random();
+    let r, g, b;
+    if (roll < 0.76) { r = 0.26; g = 0.26; b = 0.31; }        // violet-tinted neutral
+    else if (roll < 0.90) { r = 0.16; g = 0.92; b = 0.84; }   // teal
+    else { r = 1.00; g = 0.62; b = 0.24; }                    // amber
+
+    r = Math.min(1, Math.max(0, r + (Math.random() - 0.5) * 0.1));
+    g = Math.min(1, Math.max(0, g + (Math.random() - 0.5) * 0.1));
+    b = Math.min(1, Math.max(0, b + (Math.random() - 0.5) * 0.1));
+
+    const sparkle = Math.random() > 0.95 ? 2.5 : 1.0;
+    colors[i * 3] = r * intensity * sparkle;
+    colors[i * 3 + 1] = g * intensity * sparkle;
+    colors[i * 3 + 2] = b * intensity * sparkle;
+    randoms[i] = Math.random();
+  }
+
+  const ringGeometry = new THREE.BufferGeometry();
+  ringGeometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+  ringGeometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
+  ringGeometry.setAttribute('aRandom', new THREE.BufferAttribute(randoms, 1));
+
+  const uniforms = {
+    uProgress: { value: ringState === 'visible' ? 1.0 : 0.0 },
+    uAsteroids: { value: new Float32Array(INFLUENCE_COUNT * 4) },
+    time: { value: 0 }
+  };
+
+  const ringMaterial = new THREE.PointsMaterial({
+    size: 0.017,
+    vertexColors: true,
+    transparent: true,
+    opacity: 0.92,
+    sizeAttenuation: true,
+    blending: THREE.AdditiveBlending,
+    depthWrite: false
+  });
+
+  ringMaterial.onBeforeCompile = function (shader) {
+    shader.uniforms.uProgress = uniforms.uProgress;
+    shader.uniforms.uAsteroids = uniforms.uAsteroids;
+    shader.uniforms.time = uniforms.time;
+
+    shader.vertexShader = `
+      uniform float uProgress;
+      uniform vec4 uAsteroids[${INFLUENCE_COUNT}];
+      uniform float time;
+      attribute float aRandom;
+      varying float vProgress;
+    ` + shader.vertexShader;
+
+    shader.vertexShader = shader.vertexShader.replace(
+      '#include <begin_vertex>',
+      `
+      vec3 transformed = vec3(position);
+
+      float angle = atan(transformed.x, transformed.z);
+      float normalizedAngle = abs(angle) / 3.14159265359;
+      float spawnThreshold = 1.0 - normalizedAngle;
+
+      float progressValue = (uProgress * 1.4) - spawnThreshold;
+      float particleProgress = smoothstep(0.0, 0.4, progressValue);
+      vProgress = particleProgress;
+
+      transformed.y += sin(angle * 10.0 + time) * 0.05 * aRandom;
+
+      if (uProgress > 0.5) {
+        for (int i = 0; i < ${INFLUENCE_COUNT}; i++) {
+          vec4 astData = uAsteroids[i];
+          vec3 delta = transformed - astData.xyz;
+          float dist = length(delta);
+          float rad = astData.w * 2.0 + 0.15;
+
+          if (dist < rad) {
+            float force = pow((rad - dist) / rad, 2.0);
+            transformed += normalize(delta) * force * 0.4;
+            transformed.y += force * 0.20 * (aRandom - 0.5);
+          }
+        }
+      }
+
+      float swirl = (1.0 - particleProgress) * 4.0;
+      float s = sin(swirl);
+      float c = cos(swirl);
+      transformed.xz = mat2(c, -s, s, c) * transformed.xz;
+
+      transformed.y += (1.0 - particleProgress) * (transformed.y >= 0.0 ? 1.0 : -1.0);
+
+      vec3 moonSurface = normalize(transformed) * 2.1;
+      transformed = mix(moonSurface, transformed, particleProgress);
+      `
+    );
+
+    shader.fragmentShader = 'varying float vProgress;\n' + shader.fragmentShader;
+    shader.fragmentShader = shader.fragmentShader.replace(
+      '#include <color_fragment>',
+      '#include <color_fragment>\n  diffuseColor.a *= vProgress;'
+    );
+  };
+
+  const ring = new THREE.Points(ringGeometry, ringMaterial);
+  ring.rotation.x = -Math.PI / 2;
+  ring.matrixAutoUpdate = false;
+  group.add(ring);
+
+  // ---- asteroid belt ----
+  const asteroids = [];
+  for (let i = 0; i < ASTEROID_COUNT; i++) {
+    asteroids.push({
+      angle: Math.random() * Math.PI * 2,
+      baseRadius: 2.8 + Math.random() * 2.0,
+      radialAmplitude: 0.5 + Math.random() * 1.5,
+      radialSpeed: 0.15 + Math.random() * 0.25,
+      phase: Math.random() * Math.PI * 2,
+      zOffset: (Math.random() - 0.5) * 0.8,
+      speed: (0.04 + Math.random() * 0.08) * (Math.random() > 0.5 ? 1 : -1),
+      rx: Math.random() * Math.PI, ry: Math.random() * Math.PI, rz: Math.random() * Math.PI,
+      rsx: (Math.random() - 0.5) * 0.05,
+      rsy: (Math.random() - 0.5) * 0.05,
+      rsz: (Math.random() - 0.5) * 0.05,
+      scale: 0.02 + Math.pow(Math.random(), 4) * 0.18
+    });
+  }
+  asteroids.sort((a, b) => b.scale - a.scale);
+
+  const belt = new THREE.InstancedMesh(
+    new THREE.DodecahedronGeometry(1, 0),
+    new THREE.MeshStandardMaterial({ map: texture, bumpMap: texture, bumpScale: 0.6, roughness: 0.8, metalness: 0 }),
+    ASTEROID_COUNT
+  );
+  belt.visible = false;
+  group.add(belt);
+
+  const dummy = new THREE.Object3D();
+  let beltScale = reduce ? 1 : 0;
+
+  // ---- interaction ----
+  const raycaster = new THREE.Raycaster();
+  const pointer = new THREE.Vector2();
+
+  const hint = document.getElementById('moon-hint');
+
+  function release() {
+    if (ringState !== 'hidden') return;
+    ringState = 'animating';
+    if (hint) hint.classList.add('done');
+  }
+  if (reduce && hint) hint.classList.add('done');
+
+  function endDrag() {
+    document.body.classList.remove('dragging');
+  }
+
+  canvas.addEventListener('pointerdown', function (e) {
+    if (e.pointerType === 'mouse') {
+      // stops the browser starting a text selection when you drag the planet
+      e.preventDefault();
+      canvas.focus({ preventScroll: true });
+      document.body.classList.add('dragging');
+      if (window.getSelection) window.getSelection().removeAllRanges();
+    }
+
+    const rect = canvas.getBoundingClientRect();
+    pointer.x = ((e.clientX - rect.left) / rect.width) * 2 - 1;
+    pointer.y = -((e.clientY - rect.top) / rect.height) * 2 + 1;
+    raycaster.setFromCamera(pointer, camera);
+    if (raycaster.intersectObject(moon).length) release();
+  });
+
+  window.addEventListener('pointerup', endDrag);
+  window.addEventListener('pointercancel', endDrag);
+  canvas.addEventListener('dragstart', function (e) { e.preventDefault(); });
+
+  canvas.addEventListener('keydown', function (e) {
+    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); release(); }
+  });
+
+  canvas.addEventListener('pointermove', function (e) {
+    const rect = canvas.getBoundingClientRect();
+    pointer.x = ((e.clientX - rect.left) / rect.width) * 2 - 1;
+    pointer.y = -((e.clientY - rect.top) / rect.height) * 2 + 1;
+    raycaster.setFromCamera(pointer, camera);
+    canvas.style.cursor = raycaster.intersectObject(moon).length ? 'pointer' : '';
+  });
+
+  // ---- loop ----
+  const invMatrix = new THREE.Matrix4();
+  const localAsteroids = new Float32Array(INFLUENCE_COUNT * 4);
+  const astVec = new THREE.Vector3();
+  const clock = new THREE.Clock();
+  let running = false;
+  let frameId = 0;
+  let revealed = false;
+
+  function resize() {
+    const w = stage.clientWidth;
+    const h = stage.clientHeight;
+    if (!w || !h) return;
+    renderer.setSize(w, h, false);
+    camera.aspect = w / h;
+    camera.updateProjectionMatrix();
+
+    // breakpoint is about the page layout, not the canvas width
+    const narrow = window.innerWidth < 992;
+    group.scale.setScalar(1.2);
+    controls.enabled = !narrow;
+    canvas.style.touchAction = narrow ? 'pan-y' : 'none';
+  }
+
+  function tick() {
+    frameId = requestAnimationFrame(tick);
+    const delta = Math.min(clock.getDelta(), 0.05);
+
+    if (!reduce) moon.rotation.y += delta * 0.05;
+
+    // belt orbits, and feeds its positions to the ring shader
+    const target = ringState === 'hidden' ? 0 : 1;
+    beltScale = THREE.MathUtils.lerp(beltScale, target, delta * (ringState === 'hidden' ? 5 : 2));
+    belt.visible = beltScale >= 0.01;
+
+    if (belt.visible) {
+      for (let i = 0; i < ASTEROID_COUNT; i++) {
+        const a = asteroids[i];
+        a.angle += a.speed * delta;
+        a.phase += a.radialSpeed * delta;
+
+        let r = a.baseRadius + Math.sin(a.phase) * a.radialAmplitude;
+        if (r < 2.15) r = 2.15 + (2.15 - r) * 0.85;
+
+        const x = Math.cos(a.angle) * r;
+        const y = Math.sin(a.angle) * r;
+
+        massiveAsteroids[i * 4] = x;
+        massiveAsteroids[i * 4 + 1] = y;
+        massiveAsteroids[i * 4 + 2] = a.zOffset;
+        massiveAsteroids[i * 4 + 3] = a.scale;
+
+        a.rx += a.rsx; a.ry += a.rsy; a.rz += a.rsz;
+
+        dummy.position.set(x, y, a.zOffset);
+        dummy.rotation.set(a.rx, a.ry, a.rz);
+        dummy.scale.setScalar(a.scale * beltScale);
+        dummy.updateMatrix();
+        belt.setMatrixAt(i, dummy.matrix);
+      }
+      belt.instanceMatrix.needsUpdate = true;
+    }
+
+    // ring spins, then pulls the belt into its own local space for the shader
+    if (!reduce) ring.rotation.y -= delta * 0.02;
+    ring.updateMatrix();
+    invMatrix.copy(ring.matrix).invert();
+    for (let j = 0; j < INFLUENCE_COUNT; j++) {
+      astVec.set(massiveAsteroids[j * 4], massiveAsteroids[j * 4 + 1], massiveAsteroids[j * 4 + 2]).applyMatrix4(invMatrix);
+      localAsteroids[j * 4] = astVec.x;
+      localAsteroids[j * 4 + 1] = astVec.y;
+      localAsteroids[j * 4 + 2] = astVec.z;
+      localAsteroids[j * 4 + 3] = massiveAsteroids[j * 4 + 3];
+    }
+    uniforms.uAsteroids.value.set(localAsteroids);
+    uniforms.time.value = clock.elapsedTime;
+
+    if (ringState === 'animating') {
+      uniforms.uProgress.value = Math.min(1, uniforms.uProgress.value + delta * 0.35);
+      if (uniforms.uProgress.value === 1) ringState = 'visible';
+    } else if (ringState === 'visible') {
+      uniforms.uProgress.value = 1;
+    } else {
+      uniforms.uProgress.value = 0;
+    }
+
+    controls.update();
+    renderer.render(scene, camera);
+
+    if (!revealed) { revealed = true; canvas.classList.add('ready'); }
+  }
+
+  // only burn GPU while the card is on screen
+  const observer = new IntersectionObserver(function (entries) {
+    const visible = entries[0].isIntersecting;
+    if (visible && !running) { running = true; clock.getDelta(); tick(); }
+    else if (!visible && running) { running = false; cancelAnimationFrame(frameId); }
+  }, { rootMargin: '200px' });
+
+  new ResizeObserver(resize).observe(stage);
+  resize();
+  observer.observe(stage);
+}
+
+// let the text paint first, then bring in the planet
+if ('requestIdleCallback' in window) requestIdleCallback(boot, { timeout: 1200 });
+else setTimeout(boot, 200);
+</script>
+
+</body>
+</html>
