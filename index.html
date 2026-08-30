@@ -442,7 +442,73 @@ body.dragging * {
 .card-work {
   justify-content: space-between;
   gap: var(--s-4);
+  color: inherit;
+  transition: 0.3s ease-in-out;
 }
+.card-work:hover {
+  border-color: #4A4752;
+  background: #17161A;
+}
+.card-work:hover .shot { opacity: 0.92; }
+.card-work .shot { transition: opacity 0.3s ease-in-out; }
+
+/* the tag row doubles as the affordance that the card opens the live site */
+.card-work .tag {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--s-2);
+}
+.card-work .visit {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding-left: 10px;
+  margin-left: 2px;
+  border-left: 1px solid var(--line);
+  color: var(--text-2);
+  opacity: 0;
+  transform: translateX(-4px);
+  transition: 0.3s ease-in-out;
+}
+.card-work .visit::after { content: "↗"; }
+.card-work:hover .visit,
+.card-work:focus-visible .visit { opacity: 1; transform: none; }
+
+/* ---------- view more ---------- */
+
+.more {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--s-6);
+}
+
+.more summary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--s-2);
+  align-self: center;
+  padding: 16px 24px;
+  border-radius: var(--r-pill);
+  border: 1px solid var(--line);
+  background: transparent;
+  color: var(--text);
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 20px;
+  cursor: pointer;
+  list-style: none;
+  transition: 0.3s ease-in-out;
+}
+.more summary::-webkit-details-marker { display: none; }
+.more summary:hover { border-color: #4A4752; }
+.more .chev { width: 18px; height: 18px; color: var(--text-3); transition: transform 0.3s ease-in-out; }
+.more[open] .chev { transform: rotate(180deg); }
+.more .more-close { display: none; }
+.more[open] .more-open { display: none; }
+.more[open] .more-close { display: inline; }
 
 .card-work .shot {
   width: 100%;
@@ -677,6 +743,7 @@ footer a:hover { color: var(--text); }
   .btn { width: 100%; }
   .wrapper { gap: 96px; }
   .faq summary { font-size: 16px; }
+  .more { gap: var(--s-5); }
   .buttons .btn { width: 100%; }
   .proof { gap: 12px 20px; justify-content: center; }
   .proof span { font-size: 13px; }
@@ -735,37 +802,74 @@ footer a:hover { color: var(--text); }
   <section class="section" id="work">
     <div class="section-head">
       <h2 class="display-l">Recent work</h2>
-      <p class="body-s">Sites built end to end. Design, build, content, launch.</p>
+      <p class="body-s">Sites built end to end. Design, build, content, launch. Every one of these is live, open any of them.</p>
     </div>
 
     <div class="grid-3">
-      <article class="card card-work">
+      <a class="card card-work" href="https://sentinel-vi.org" target="_blank" rel="noopener">
+        <img class="shot" src="./assets/work-sentinel.webp" alt="Sentinel VI Foundation home page: a veteran photographed against a US flag, with the headline No hero walks alone" width="640" height="400" loading="lazy" decoding="async">
+        <div class="top">
+          <div class="body-l">Sentinel VI Foundation</div>
+          <div class="body-s">Non-profit supporting veterans and first responders. Scholarships, microgrants and placement, all applied for from the site.</div>
+        </div>
+        <span class="tag">Next.js<span class="visit">Visit</span></span>
+      </a>
+
+      <a class="card card-work" href="https://valortech-ai.vercel.app" target="_blank" rel="noopener">
         <img class="shot" src="./assets/work-valortech.webp" alt="VALORtech.AI home page: a large headline over a network diagram, with a dark compliance status panel on the right" width="640" height="400" loading="lazy" decoding="async">
         <div class="top">
           <div class="body-l">VALORtech.AI</div>
-          <div class="body-s">Marketing site for a US federal AI and data engineering contractor. Built to survive procurement scrutiny and load on government networks.</div>
+          <div class="body-s">US federal AI and data engineering contractor. Built to survive procurement scrutiny and load on government networks.</div>
         </div>
-        <span class="tag">Next.js</span>
-      </article>
+        <span class="tag">Next.js<span class="visit">Visit</span></span>
+      </a>
 
-      <article class="card card-work">
+      <a class="card card-work" href="https://tharseo-it.vercel.app" target="_blank" rel="noopener">
         <img class="shot" src="./assets/work-tharseo.webp" alt="Tharseo IT home page: lime green Oracle Cloud headline over a dark halftone background, with a row of result figures" width="640" height="400" loading="lazy" decoding="async">
         <div class="top">
           <div class="body-l">Tharseo IT</div>
-          <div class="body-s">Motion led scroll for an IT services firm, with the animation libraries loaded on demand instead of on every page.</div>
+          <div class="body-s">Oracle Cloud partner for federal and enterprise. Motion led scroll, with the animation libraries loaded on demand instead of on every page.</div>
         </div>
-        <span class="tag">Next.js, GSAP</span>
-      </article>
-
-      <article class="card card-work">
-        <img class="shot" src="./assets/work-sppk.webp" alt="SPPK home page: the lead article with a photograph, a full topic menu above it and a sidebar of most-read stories" width="640" height="400" loading="lazy" decoding="async">
-        <div class="top">
-          <div class="body-l">SPPK</div>
-          <div class="body-s">Full rebuild of a Slovak trade association site. Navigation and content restructured before a single pixel was drawn.</div>
-        </div>
-        <span class="tag">Rebuild</span>
-      </article>
+        <span class="tag">Next.js, GSAP<span class="visit">Visit</span></span>
+      </a>
     </div>
+
+    <details class="more">
+      <summary>
+        <span class="more-open">Three more</span>
+        <span class="more-close">Show less</span>
+        <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+      </summary>
+
+      <div class="grid-3 more-grid">
+        <a class="card card-work" href="https://sppk-redesign.vercel.app" target="_blank" rel="noopener">
+          <img class="shot" src="./assets/work-sppk.webp" alt="SPPK home page: the lead article with a photograph, a full topic menu above it and a sidebar of most-read stories" width="640" height="400" loading="lazy" decoding="async">
+          <div class="top">
+            <div class="body-l">SPPK</div>
+            <div class="body-s">Slovak agriculture and food chamber. Full rebuild, navigation and content restructured before a single pixel was drawn.</div>
+          </div>
+          <span class="tag">Rebuild<span class="visit">Visit</span></span>
+        </a>
+
+        <a class="card card-work" href="https://petrzalska-posilka.vercel.app" target="_blank" rel="noopener">
+          <img class="shot" src="./assets/work-petrzalska.webp" alt="Petrzalska posilka home page: a dark gym interior behind the headline Silnejsi s kazdym treningom" width="640" height="400" loading="lazy" decoding="async">
+          <div class="top">
+            <div class="body-l">Petržalská posilka</div>
+            <div class="body-s">Neighbourhood gym in Bratislava. Schedule, pricing and a trial booking, built to be read on a phone at the door.</div>
+          </div>
+          <span class="tag">Static<span class="visit">Visit</span></span>
+        </a>
+
+        <a class="card card-work" href="https://matuskalis.com" target="_blank" rel="noopener">
+          <img class="shot" src="./assets/work-matuskalis.webp" alt="matuskalis.com home page: monospaced type on black with the headline Crafting Digital Experiences With Code" width="640" height="400" loading="lazy" decoding="async">
+          <div class="top">
+            <div class="body-l">matuskalis.com</div>
+            <div class="body-s">My own portfolio. Monospaced, black, no images. The restraint is the point.</div>
+          </div>
+          <span class="tag">Next.js<span class="visit">Visit</span></span>
+        </a>
+      </div>
+    </details>
 
     <a class="btn btn-ghost" href="https://cal.com/matuskalis/scoping-call" target="_blank" rel="noopener">Ask for the full portfolio</a>
   </section>
