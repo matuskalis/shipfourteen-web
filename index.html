@@ -26,8 +26,18 @@
 <meta name="twitter:description" content="Fixed scope, fixed timeline, no retainer. You own the code, the domain and the hosting on day fourteen.">
 <meta name="twitter:image" content="https://shipfourteen.com/assets/og.jpg">
 <link rel="preload" as="font" type="font/woff2" href="./fonts/inter-latin.woff2" crossorigin>
+<link rel="preload" as="font" type="font/woff2" href="./fonts/michroma.woff2" crossorigin>
 <link rel="preload" as="image" href="./assets/moon-color.webp" crossorigin fetchpriority="low">
 <style>
+@font-face {
+  font-family: 'Michroma';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('./fonts/michroma.woff2') format('woff2');
+  unicode-range: U+0020, U+0041-005A, U+0061-007A;
+}
+
 @font-face {
   font-family: 'Inter';
   font-style: normal;
@@ -55,7 +65,6 @@
   --text-2: #E2E6EC;
   --text-3: #8D8D9C;
   --text-4: rgba(255,255,255,0.5);
-  --dot: #FF5555;
 
   --r-card: 24px;
   --r-pill: 48px;
@@ -147,15 +156,6 @@ img, svg { display: block; max-width: 100%; }
 .meta     { font-size: 14px; font-weight: 400; line-height: 1.5; color: var(--text-2); }
 .meta-dim { font-size: 14px; font-weight: 400; line-height: 1.5; color: var(--text-3); }
 .micro    { font-size: 12px; font-weight: 400; line-height: 1.5; color: var(--text-3); }
-
-.label {
-  font-size: 12px;
-  font-weight: 500;
-  line-height: 1.5;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-  color: var(--text);
-}
 
 /* ---------- layout ---------- */
 
@@ -280,13 +280,14 @@ body.dragging * {
 .hero-inner > * { pointer-events: auto; }
 
 .logo {
-  font-size: 14px;
-  font-weight: 600;
-  letter-spacing: 3px;
+  font-family: Michroma, Inter, sans-serif;
+  font-size: 11px;
+  font-weight: 400;
+  letter-spacing: 5px;
   text-transform: uppercase;
   color: var(--text);
 }
-.logo span { color: var(--text-3); font-weight: 500; }
+.logo span { color: var(--text-3); }
 
 .hero-stack {
   display: flex;
@@ -353,25 +354,6 @@ body.dragging * {
   font-size: 15px;
 }
 .btn-ghost:hover { border-color: #4A4752; }
-
-/* ---------- status badge ---------- */
-
-.badge {
-  display: inline-flex;
-  align-items: center;
-  gap: var(--s-2);
-  padding: 8px 16px 8px 12px;
-  border-radius: var(--r-badge);
-  background: rgba(0,0,0,0.4);
-  border: 1px solid var(--line);
-}
-.badge .dot {
-  width: 6px;
-  height: 6px;
-  border-radius: 100px;
-  background: var(--dot);
-  flex: none;
-}
 
 /* ---------- proof row ---------- */
 
@@ -707,7 +689,8 @@ footer a:hover { color: var(--text); }
   .statement .body-s { padding-top: 0; max-width: 100%; }
   .grid-2 { grid-template-columns: minmax(0, 1fr); width: 100%; }
   .section { gap: var(--s-5); }
-  .hero { min-height: auto; flex-direction: column; }
+  /* stacked: planet on top, everything under it centred */
+  .hero { min-height: auto; flex-direction: column; text-align: center; }
   .hero-stage {
     position: relative;
     inset: auto;
@@ -715,17 +698,26 @@ footer a:hover { color: var(--text); }
     min-width: 0;
     margin: 0 -1px;
     height: 420px;
-    order: 2;
+    order: 0;
     /* fades the canvas block into the page instead of ending on a hard edge */
-    mask-image: linear-gradient(to bottom, transparent, #000 14%, #000 86%, transparent);
-    -webkit-mask-image: linear-gradient(to bottom, transparent, #000 14%, #000 86%, transparent);
+    mask-image: linear-gradient(to bottom, transparent, #000 10%, #000 86%, transparent);
+    -webkit-mask-image: linear-gradient(to bottom, transparent, #000 10%, #000 86%, transparent);
   }
-  /* stacked layout puts the text above the planet, so nothing needs veiling */
+  /* stacked layout separates the text from the planet, so nothing needs veiling */
   .hero-veil { display: none; }
-  .hero-inner { order: 1; padding: 100px 24px 24px; gap: var(--s-5); }
-  .glow { top: 30%; right: 50%; width: 760px; height: 760px; }
-  .stage-hint { right: 24px; bottom: 24px; }
-  .proof { gap: 12px 24px; max-width: 100%; }
+  .hero-inner {
+    order: 1;
+    padding: 8px 24px 24px;
+    gap: var(--s-5);
+    align-items: center;
+  }
+  .hero-stack { align-items: center; }
+  .hero-copy { align-items: center; }
+  .buttons { justify-content: center; }
+  .hero .lead { margin-inline: auto; }
+  .glow { top: 14%; right: 50%; width: 760px; height: 760px; }
+  .stage-hint { right: 24px; bottom: 16px; }
+  .proof { gap: 12px 24px; max-width: 100%; justify-content: center; }
 }
 
 @media (max-width: 600px) {
@@ -737,7 +729,7 @@ footer a:hover { color: var(--text); }
   .display-l { background-image: linear-gradient(7deg, #8E8DA0, #E9E8FD 60%); }
   .grid-3 { grid-template-columns: minmax(0, 1fr); }
   .statement { padding: 40px 24px; }
-  .hero-stage { height: 380px; }
+  .hero-stage { height: 360px; }
   .statement .display-l { font-size: 38px; letter-spacing: -1.4px; }
   .buttons { width: 100%; flex-direction: column; align-items: stretch; }
   .btn { width: 100%; }
@@ -781,10 +773,6 @@ footer a:hover { color: var(--text); }
           <a class="btn btn-secondary" href="https://cal.com/matuskalis/scoping-call" target="_blank" rel="noopener">Book a call</a>
         </div>
 
-        <div class="badge">
-          <span class="dot" aria-hidden="true"></span>
-          <span class="label">Currently taking new projects</span>
-        </div>
       </div>
 
       <div class="proof">

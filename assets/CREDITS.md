@@ -7,3 +7,11 @@ Both derived from NASA's Scientific Visualization Studio CGI Moon Kit:
 https://svs.gsfc.nasa.gov/4720/
 
 NASA SVS material is in the public domain. Credit: NASA's Scientific Visualization Studio.
+
+## Typefaces
+
+- `fonts/inter-latin.woff2`, `fonts/inter-latin-ext.woff2` — Inter by Rasmus
+  Andersson. SIL Open Font License 1.1. Variable, subset to the glyphs the page
+  uses.
+- `fonts/michroma.woff2` — Michroma by Vernon Adams. SIL Open Font License 1.1,
+  via Google Fonts. Used for the wordmark only, subset to A–Z, a–z and space.
