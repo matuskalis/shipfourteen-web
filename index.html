@@ -227,24 +227,6 @@ img, svg { display: block; max-width: 100%; }
 }
 .hero-stage canvas.ready { opacity: 1; }
 
-.stage-hint {
-  position: absolute;
-  right: 40px;
-  bottom: 40px;
-  z-index: 2;
-  font-size: 12px;
-  font-weight: 500;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-  color: var(--text-3);
-  padding: 8px 16px;
-  border-radius: var(--r-badge);
-  border: 1px solid var(--line);
-  background: rgba(0,0,0,0.4);
-  pointer-events: none;
-  transition: opacity 0.6s ease-in-out, transform 0.6s ease-in-out;
-}
-.stage-hint.done { opacity: 0; transform: translateY(6px); }
 
 body.dragging,
 body.dragging * {
@@ -406,21 +388,6 @@ body.dragging * {
 
 .card .body-l { font-size: 20px; font-weight: 400; }
 
-.card-num {
-  width: 40px;
-  height: 40px;
-  border-radius: 100px;
-  background: linear-gradient(to top, var(--surface-top), var(--surface));
-  border: 1px solid var(--line);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 14px;
-  font-weight: 500;
-  color: var(--text-2);
-  flex: none;
-}
-
 .card-work {
   justify-content: space-between;
   gap: var(--s-4);
@@ -518,13 +485,81 @@ body.dragging * {
   color: var(--text-3);
 }
 
-.card-step { gap: var(--s-4); }
-.step-head {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+/* ---------- spec list (no boxes, hairlines only) ---------- */
+
+.spec {
   width: 100%;
-  gap: var(--s-3);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  column-gap: var(--s-7);
+}
+
+.spec-item {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: var(--s-4);
+  align-items: start;
+  padding: 26px 0;
+  border-top: 1px solid var(--line);
+  text-align: left;
+}
+
+.spec-num {
+  font-family: Michroma, Inter, sans-serif;
+  font-size: 10px;
+  letter-spacing: 2px;
+  color: var(--text-3);
+  padding-top: 5px;
+}
+
+.spec-item .body-l { font-size: 18px; margin-bottom: 6px; }
+
+/* ---------- flow (steps strung on one rule) ---------- */
+
+.flow {
+  position: relative;
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--s-6);
+}
+.flow::before {
+  content: "";
+  position: absolute;
+  top: 6px;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: var(--line);
+}
+
+.flow-step {
+  position: relative;
+  padding-top: 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  text-align: left;
+}
+.flow-step::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 13px;
+  height: 13px;
+  border-radius: 100px;
+  background: var(--bg);
+  border: 1px solid #4A4752;
+}
+.flow-step:first-child::before { background: var(--text); border-color: var(--text); }
+
+.flow-day {
+  font-family: Michroma, Inter, sans-serif;
+  font-size: 10px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--text-3);
 }
 
 /* ---------- statement card ---------- */
@@ -683,6 +718,11 @@ footer a:hover { color: var(--text); }
   .display-l { font-size: 44px; letter-spacing: -0.9px; }
   .display-m { font-size: 30px; }
   .grid-3 { grid-template-columns: repeat(2, minmax(0, 1fr)); width: 100%; }
+  .spec { grid-template-columns: 1fr; column-gap: 0; }
+  .flow { grid-template-columns: 1fr; gap: 0; }
+  .flow::before { top: 6px; bottom: 26px; left: 6px; right: auto; width: 1px; height: auto; }
+  .flow-step { padding: 0 0 34px 34px; }
+  .flow-step:last-child { padding-bottom: 0; }
   .section.wide { width: 1000px; }
   .statement { flex-direction: column; gap: var(--s-4); padding: 48px 32px; }
   .statement .display-l { font-size: 48px; letter-spacing: -1.8px; }
@@ -716,7 +756,6 @@ footer a:hover { color: var(--text); }
   .buttons { justify-content: center; }
   .hero .lead { margin-inline: auto; }
   .glow { top: 14%; right: 50%; width: 760px; height: 760px; }
-  .stage-hint { right: 24px; bottom: 16px; }
   .proof { gap: 12px 24px; max-width: 100%; justify-content: center; }
 }
 
@@ -754,7 +793,6 @@ footer a:hover { color: var(--text); }
   <header class="hero">
     <div class="hero-stage">
       <canvas id="moon-stage" tabindex="0" role="button" aria-label="Release the debris ring around the planet"></canvas>
-      <span class="stage-hint" id="moon-hint">Click the planet</span>
     </div>
     <div class="glow" aria-hidden="true"></div>
     <div class="hero-veil" aria-hidden="true"></div>
@@ -877,42 +915,49 @@ footer a:hover { color: var(--text); }
       <p class="body-s">One scope, one price, one date. Nothing to renegotiate halfway through.</p>
     </div>
 
-    <div class="grid-3">
-      <article class="card">
-        <div class="card-num"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="20" height="20" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="3"/><path d="M8 3v4M16 3v4M3 11h18"/></svg></div>
-        <div class="body-l">Fourteen days to live</div>
-        <div class="body-s">Kickoff on day one, your site answering on your domain on day fourteen. The date is in the contract, not in a status update.</div>
-      </article>
-
-      <article class="card">
-        <div class="card-num"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="20" height="20" aria-hidden="true"><path d="M17 6.5A6 6 0 1 0 17 17.5"/><path d="M4 10.5h9M4 13.5h9"/></svg></div>
-        <div class="body-l">Fixed price, quoted first</div>
-        <div class="body-s">You get a written scope and a number before anything starts. No hourly billing, no change order for a paragraph rewrite.</div>
-      </article>
-
-      <article class="card">
-        <div class="card-num"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="20" height="20" aria-hidden="true"><path d="M15.5 8.5a4 4 0 1 0-4 4"/><path d="M11.5 12.5 5 19v2.5h3v-2h2v-2h2l1.5-1.5"/></svg></div>
-        <div class="body-l">You own everything</div>
-        <div class="body-s">Repo, domain, hosting and analytics live in your accounts. Leave whenever you want and take all of it with you.</div>
-      </article>
-
-      <article class="card">
-        <div class="card-num"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="20" height="20" aria-hidden="true"><path d="M12 3 3 8l9 5 9-5-9-5Z"/><path d="m3 14 9 5 9-5"/></svg></div>
-        <div class="body-l">No page builder underneath</div>
-        <div class="body-s">Hand built pages, no template plugin stack to keep paying for. What ships is what runs.</div>
-      </article>
-
-      <article class="card">
-        <div class="card-num"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="20" height="20" aria-hidden="true"><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L8 18l-4 1 1-4 11.5-11.5Z"/></svg></div>
-        <div class="body-l">Copy included</div>
-        <div class="body-s">Words are part of the build, not homework you get handed on day twelve. English or Slovak.</div>
-      </article>
-
-      <article class="card">
-        <div class="card-num"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="20" height="20" aria-hidden="true"><path d="M20 7 10 17l-5-5"/></svg></div>
-        <div class="body-l">Two weeks of fixes</div>
-        <div class="body-s">Fourteen days of bug fixes after launch, included. Whatever breaks, I fix it.</div>
-      </article>
+    <div class="spec">
+      <div class="spec-item">
+        <div class="spec-num">01</div>
+        <div>
+          <div class="body-l">Fourteen days to live</div>
+          <div class="body-s">Kickoff on day one, your site answering on your domain on day fourteen. The date is in the contract, not in a status update.</div>
+        </div>
+      </div>
+      <div class="spec-item">
+        <div class="spec-num">02</div>
+        <div>
+          <div class="body-l">Fixed price, quoted first</div>
+          <div class="body-s">You get a written scope and a number before anything starts. No hourly billing, no change order for a paragraph rewrite.</div>
+        </div>
+      </div>
+      <div class="spec-item">
+        <div class="spec-num">03</div>
+        <div>
+          <div class="body-l">You own everything</div>
+          <div class="body-s">Repo, domain, hosting and analytics live in your accounts. Leave whenever you want and take all of it with you.</div>
+        </div>
+      </div>
+      <div class="spec-item">
+        <div class="spec-num">04</div>
+        <div>
+          <div class="body-l">No page builder underneath</div>
+          <div class="body-s">Hand built pages, no template plugin stack to keep paying for. What ships is what runs.</div>
+        </div>
+      </div>
+      <div class="spec-item">
+        <div class="spec-num">05</div>
+        <div>
+          <div class="body-l">Copy included</div>
+          <div class="body-s">Words are part of the build, not homework you get handed on day twelve. English or Slovak.</div>
+        </div>
+      </div>
+      <div class="spec-item">
+        <div class="spec-num">06</div>
+        <div>
+          <div class="body-l">Two weeks of fixes</div>
+          <div class="body-s">Fourteen days of bug fixes after launch, included. Whatever breaks, I fix it.</div>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -923,33 +968,22 @@ footer a:hover { color: var(--text); }
       <p class="body-s">Three steps. You are in exactly two meetings.</p>
     </div>
 
-    <div class="grid-3">
-      <article class="card card-step">
-        <div class="step-head">
-          <div class="display-m">01</div>
-          <span class="tag">Day 00</span>
-        </div>
+    <div class="flow">
+      <div class="flow-step">
+        <div class="flow-day">Day 00</div>
         <div class="body-l">Scoping call</div>
         <div class="body-s">Thirty minutes. We agree what the site has to do and who it has to convince. You get the scope and the fixed price in writing within a day.</div>
-      </article>
-
-      <article class="card card-step">
-        <div class="step-head">
-          <div class="display-m">02</div>
-          <span class="tag">Day 01 to 11</span>
-        </div>
+      </div>
+      <div class="flow-step">
+        <div class="flow-day">Day 01 to 11</div>
         <div class="body-l">Build</div>
         <div class="body-s">Design and code together, on a live preview URL you can open any time. One review at the midpoint, so nothing lands as a surprise.</div>
-      </article>
-
-      <article class="card card-step">
-        <div class="step-head">
-          <div class="display-m">03</div>
-          <span class="tag">Day 12 to 14</span>
-        </div>
+      </div>
+      <div class="flow-step">
+        <div class="flow-day">Day 12 to 14</div>
         <div class="body-l">Launch</div>
         <div class="body-s">Domain, analytics, forms and handover docs. Your team gets the keys, plus two weeks of fixes on me.</div>
-      </article>
+      </div>
     </div>
   </section>
 
@@ -1258,6 +1292,21 @@ async function boot() {
   belt.visible = false;
   group.add(belt);
 
+  // an empty orbit says something belongs here, without a word of instruction
+  const ORBIT_R = 3.45;
+  const orbitPts = [];
+  for (let i = 0; i <= 160; i++) {
+    const a = (i / 160) * Math.PI * 2;
+    orbitPts.push(new THREE.Vector3(Math.cos(a) * ORBIT_R, Math.sin(a) * ORBIT_R, 0));
+  }
+  const orbitMat = new THREE.LineBasicMaterial({
+    color: 0xE9E8FD, transparent: true, opacity: 0, depthWrite: false
+  });
+  const orbit = new THREE.LineLoop(new THREE.BufferGeometry().setFromPoints(orbitPts), orbitMat);
+  group.add(orbit);
+  let orbitTarget = 0.18;
+  let hovering = false;
+
   const dummy = new THREE.Object3D();
   let beltScale = reduce ? 1 : 0;
 
@@ -1265,14 +1314,11 @@ async function boot() {
   const raycaster = new THREE.Raycaster();
   const pointer = new THREE.Vector2();
 
-  const hint = document.getElementById('moon-hint');
-
   function release() {
     if (ringState !== 'hidden') return;
     ringState = 'animating';
-    if (hint) hint.classList.add('done');
+    orbitTarget = 0;
   }
-  if (reduce && hint) hint.classList.add('done');
 
   function endDrag() {
     document.body.classList.remove('dragging');
@@ -1307,7 +1353,8 @@ async function boot() {
     pointer.x = ((e.clientX - rect.left) / rect.width) * 2 - 1;
     pointer.y = -((e.clientY - rect.top) / rect.height) * 2 + 1;
     raycaster.setFromCamera(pointer, camera);
-    canvas.style.cursor = raycaster.intersectObject(moon).length ? 'pointer' : '';
+    hovering = raycaster.intersectObject(moon).length > 0;
+    canvas.style.cursor = hovering ? 'pointer' : '';
   });
 
   // ---- loop ----
@@ -1339,6 +1386,13 @@ async function boot() {
     const delta = Math.min(clock.getDelta(), 0.05);
 
     if (!reduce) moon.rotation.y += delta * 0.05;
+
+    if (ringState === 'hidden') {
+      const pulse = reduce ? 0.18 : 0.13 + 0.07 * Math.sin(clock.elapsedTime * 1.1);
+      orbitTarget = hovering ? 0.42 : pulse;
+    }
+    orbitMat.opacity += (orbitTarget - orbitMat.opacity) * Math.min(1, delta * 3.5);
+    orbit.rotation.z += delta * 0.06;
 
     // belt orbits, and feeds its positions to the ring shader
     const target = ringState === 'hidden' ? 0 : 1;
