@@ -58,28 +58,25 @@
 }
 
 :root {
-  --bg: #04060D;
+  --bg:      #04060D;
   --surface: #121114;
-  --surface-top: #2A2930;
-  --line: #2D2B31;
-  --text: #FFFFFF;
-  --text-2: #E2E6EC;
-  --text-3: #8D8D9C;
-  --text-4: rgba(255,255,255,0.5);
+  --line:    #2D2B31;
+  --line-hi: #4A4752;
+  --text:    #FFFFFF;
+  --text-2:  #E2E6EC;
+  --text-3:  #8D8D9C;
 
-  --r-card: 24px;
-  --r-pill: 48px;
-  --r-badge: 70px;
+  --r-sm: 2px;
+  --r-md: 3px;
 
-  --s-1: 4px;
-  --s-2: 8px;
-  --s-3: 16px;
-  --s-4: 24px;
-  --s-5: 40px;
-  --s-6: 48px;
-  --s-7: 64px;
-  --s-section: 200px;
+  --fs-display: clamp(38px, 6.6vw, 72px);
+  --fs-h2:      clamp(28px, 4.2vw, 44px);
+  --fs-h3:      20px;
+  --fs-body:    17px;
+  --fs-meta:    14px;
+  --fs-micro:   11px;
 
+  --s-section: clamp(88px, 11vw, 152px);
   --ease: cubic-bezier(0.4, 0, 0.2, 1);
 }
 
@@ -88,178 +85,76 @@
 html {
   -webkit-text-size-adjust: 100%;
   overflow-x: clip;
+  scroll-behavior: smooth;
 }
 
 body {
   background: var(--bg);
-  color: var(--text);
+  color: var(--text-3);
   font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  font-size: 15px;
-  line-height: 1.5;
-  letter-spacing: -0.2px;
+  font-size: var(--fs-body);
+  line-height: 1.58;
   -webkit-font-smoothing: antialiased;
-  overflow-x: hidden;
 }
 
 a { color: inherit; text-decoration: none; }
-img, svg { display: block; max-width: 100%; }
+img, svg, canvas { display: block; max-width: 100%; }
 
 :focus-visible {
-  outline: 2px solid #E9E8FD;
-  outline-offset: 3px;
-  border-radius: 4px;
+  outline: 2px solid var(--text);
+  outline-offset: 2px;
+  border-radius: var(--r-sm);
 }
+.btn-primary:focus-visible { outline-offset: 3px; box-shadow: 0 0 0 5px var(--bg); }
 
-/* ---------- type scale ---------- */
-
-.display-xl,
-.display-l {
-  font-weight: 600;
-  background-clip: text;
-  -webkit-background-clip: text;
-  color: transparent;
-}
-
-.display-xl {
-  font-size: 72px;
-  line-height: 1.02;
-  letter-spacing: -2.9px;
-  background-image: linear-gradient(355deg, rgba(255,255,255,0.42), #FFFFFF 73%);
-}
-
-.display-xl.closing {
-  font-size: 110px;
-  line-height: 1.1;
-  letter-spacing: -2.2px;
-  background-image: linear-gradient(162deg, rgba(255,255,255,0.9) 19%, rgba(255,255,255,0.1));
-}
-
-.display-l {
-  font-size: 64px;
-  line-height: 1.1;
-  letter-spacing: -1.28px;
-  background-image: linear-gradient(7deg, #555464, #E9E8FD 75%);
-  padding-bottom: 9px;
-}
-
-.display-m {
-  font-size: 36px;
-  font-weight: 600;
-  line-height: 1.11;
-  letter-spacing: -0.72px;
-  color: var(--text);
-}
-
-.lead     { font-size: 20px; font-weight: 300; line-height: 1.5; color: var(--text); }
-.body-l   { font-size: 20px; font-weight: 400; line-height: 1.5; color: var(--text); }
-.body     { font-size: 18px; font-weight: 300; line-height: 1.5; color: var(--text); }
-.body-s   { font-size: 15px; font-weight: 400; line-height: 1.5; color: var(--text-3); }
-.meta     { font-size: 14px; font-weight: 400; line-height: 1.5; color: var(--text-2); }
-.meta-dim { font-size: 14px; font-weight: 400; line-height: 1.5; color: var(--text-3); }
-.micro    { font-size: 12px; font-weight: 400; line-height: 1.5; color: var(--text-3); }
-
-/* ---------- layout ---------- */
-
-.wrapper {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: var(--s-section);
-  width: 100%;
-  padding-bottom: 60px;
-  position: relative;
-  z-index: 1;
-}
-
-.section {
-  width: 1000px;
-  max-width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: var(--s-6);
-  padding: 0 24px;
-  text-align: center;
-}
-
-.section-head {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: var(--s-3);
-  max-width: 700px;
-}
-
-.section-head .body-s { font-size: 20px; font-weight: 300; color: var(--text-3); }
-
-/* ---------- hero ---------- */
-
-.hero {
-  width: 100%;
-  max-width: 100%;
-  min-height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0;
-  position: relative;
-  overflow: hidden;
-  text-align: left;
-}
-
-.hero-stage {
-  position: absolute;
-  inset: -1px -1px -1px auto;
-  width: 62%;
-  min-width: 620px;
-  z-index: 0;
-}
-.hero-stage canvas {
-  width: 100%;
-  height: 100%;
-  display: block;
-  cursor: grab;
-  touch-action: none;
-  user-select: none;
-  -webkit-user-select: none;
-  opacity: 0;
-  transition: opacity 0.9s ease-in-out;
-}
-.hero-stage canvas.ready { opacity: 1; }
-
-
-body.dragging,
-body.dragging * {
+body.dragging, body.dragging * {
   user-select: none;
   -webkit-user-select: none;
   cursor: grabbing !important;
 }
 
-.hero-veil {
+/* ---------- type ---------- */
+
+h1 { font-size: var(--fs-display); font-weight: 500; line-height: 1.04; letter-spacing: -0.032em; color: var(--text); }
+h2 { font-size: var(--fs-h2);      font-weight: 500; line-height: 1.10; letter-spacing: -0.022em; color: var(--text); }
+h3 { font-size: var(--fs-h3);      font-weight: 500; line-height: 1.35; letter-spacing: -0.01em;  color: var(--text); }
+
+p { max-width: 62ch; }
+.lead { font-size: clamp(18px, 2vw, 21px); line-height: 1.5; color: var(--text-2); }
+
+.label {
+  font-size: var(--fs-micro);
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text-3);
+}
+
+.skip {
   position: absolute;
-  inset: 0 auto 0 0;
-  width: 74%;
-  z-index: 1;
-  pointer-events: none;
-  background: linear-gradient(to right, var(--bg) 0, var(--bg) 46%, rgba(4,6,13,0.88) 66%, rgba(4,6,13,0));
+  left: -9999px;
+  top: 0;
+  z-index: 100;
+  padding: 14px 20px;
+  background: var(--text);
+  color: var(--bg);
+  font-size: var(--fs-meta);
 }
+.skip:focus { left: 12px; top: 12px; }
 
-.hero-inner {
-  position: relative;
-  z-index: 2;
-  pointer-events: none;
-  width: 1188px;
-  max-width: 100%;
-  padding: 120px 24px 64px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  gap: var(--s-6);
-  align-items: flex-start;
-}
+/* ---------- layout ---------- */
 
-/* the column spans the full width for layout, so only its blocks take clicks */
-.hero-inner > * { pointer-events: auto; }
+.shell { width: min(100% - 40px, 1180px); margin-inline: auto; }
+
+.section { padding-block: var(--s-section); }
+.section + .section { padding-top: 0; }
+
+.grid { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: 24px; }
+
+.head { display: flex; flex-direction: column; gap: 14px; margin-bottom: 56px; max-width: 720px; }
+.head p { color: var(--text-3); }
+
+/* ---------- wordmark + sticky bar ---------- */
 
 .logo {
   font-family: Michroma, Inter, sans-serif;
@@ -268,35 +163,24 @@ body.dragging * {
   letter-spacing: 5px;
   text-transform: uppercase;
   color: var(--text);
+  white-space: nowrap;
 }
 .logo span { color: var(--text-3); }
 
-.hero-stack {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: var(--s-5);
-  width: 620px;
-  max-width: 100%;
+.bar {
+  position: fixed;
+  inset: 0 0 auto 0;
+  z-index: 40;
+  background: rgba(4, 6, 13, 0.82);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--line);
+  transform: translateY(-101%);
+  transition: transform 0.35s var(--ease);
 }
-
-.hero-copy {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: var(--s-3);
-}
-
-.hero .lead { color: var(--text-2); max-width: 480px; }
-
-.buttons {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: flex-start;
-  gap: var(--s-3);
-  flex-wrap: wrap;
-}
+.bar.is-on { transform: none; }
+.bar-inner { display: flex; align-items: center; justify-content: space-between; gap: 20px; height: 62px; }
+.bar .btn { height: 40px; padding: 0 16px; font-size: var(--fs-meta); white-space: nowrap; }
+.bar-short { display: none; }
 
 /* ---------- buttons ---------- */
 
@@ -304,701 +188,736 @@ body.dragging * {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: var(--s-3);
-  padding: 16px 24px;
-  border-radius: var(--r-pill);
-  font-size: 18px;
+  gap: 10px;
+  height: 52px;
+  padding: 0 24px;
+  border-radius: var(--r-sm);
+  font-size: 15px;
   font-weight: 500;
-  line-height: 20px;
-  letter-spacing: normal;
   border: 1px solid transparent;
-  transition: 0.3s ease-in-out;
+  transition: background-color .18s var(--ease), border-color .18s var(--ease);
   cursor: pointer;
 }
-
-.btn-primary {
-  background: #FFFFFF;
-  color: #000000;
-}
+.btn-primary { background: var(--text); color: var(--bg); }
 .btn-primary:hover { background: var(--text-2); }
 
-.btn-secondary {
-  background-image: linear-gradient(#121114, #2E2B35);
-  color: var(--text);
-  border-color: var(--line);
-}
-.btn-secondary:hover { background-image: linear-gradient(#1A181D, #3A3644); }
+.btn-quiet { background: transparent; color: var(--text); border-color: var(--line); }
+.btn-quiet:hover { border-color: var(--line-hi); background: rgba(255,255,255,0.03); }
 
-.btn-ghost {
-  background: transparent;
-  color: var(--text);
-  border-color: var(--line);
-  font-size: 15px;
-}
-.btn-ghost:hover { border-color: #4A4752; }
-
-/* ---------- proof row ---------- */
-
-.proof {
-  width: 100%;
-  max-width: 700px;
-  display: flex;
-  flex-direction: row;
+/* 44px tall for the thumb, with the underline drawn under the text
+   rather than at the edge of the tap target */
+.link {
+  position: relative;
+  display: inline-flex;
   align-items: center;
-  justify-content: flex-start;
-  flex-wrap: wrap;
-  gap: var(--s-3) var(--s-4);
-  padding: 0;
+  gap: 8px;
+  min-height: 44px;
+  padding-block: 10px;
+  font-size: 15px;
+  color: var(--text);
 }
-.proof span {
-  font-size: 14px;
-  font-weight: 500;
-  letter-spacing: 0.4px;
-  color: var(--text-3);
-  opacity: 0.85;
+.link::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 8px;
+  height: 1px;
+  background: var(--line);
+  transition: background-color .18s var(--ease);
 }
+.link:hover::after { background: var(--text); }
+.link svg { width: 13px; height: 13px; flex: none; }
 
-/* ---------- cards ---------- */
+.actions { display: flex; flex-wrap: wrap; gap: 12px; }
 
-.grid-3 {
+/* ---------- primitives ---------- */
+
+.rule-row {
+  border-top: 1px solid var(--line);
+  padding: 26px 0;
   display: grid;
-  grid-template-columns: repeat(3, 304px);
-  gap: var(--s-4);
-  justify-content: center;
+  column-gap: 24px;
 }
 
-.grid-2 {
-  display: grid;
-  grid-template-columns: repeat(2, 468px);
-  gap: var(--s-4);
-  justify-content: center;
-}
-
-.card {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: var(--s-3);
-  padding: var(--s-4);
-  border-radius: var(--r-card);
+.panel {
   background: var(--surface);
   border: 1px solid var(--line);
-  text-align: left;
+  border-radius: var(--r-md);
+  padding: clamp(28px, 4vw, 48px);
 }
 
-.card .body-l { font-size: 20px; font-weight: 400; }
-
-.card-num {
-  width: 40px;
-  height: 40px;
-  border-radius: 100px;
-  background: linear-gradient(to top, var(--surface-top), var(--surface));
-  border: 1px solid var(--line);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 14px;
-  font-weight: 500;
-  color: var(--text-2);
-  flex: none;
-}
-
-.card-work {
-  justify-content: space-between;
-  gap: var(--s-4);
-  color: inherit;
-  transition: 0.3s ease-in-out;
-}
-.card-work:hover {
-  border-color: #4A4752;
-  background: #17161A;
-}
-.card-work:hover .shot { opacity: 0.92; }
-.card-work .shot { transition: opacity 0.3s ease-in-out; }
-
-/* the tag row doubles as the affordance that the card opens the live site */
-.card-work .tag {
-  display: inline-flex;
-  align-items: center;
-  gap: var(--s-2);
-}
-.card-work .visit {
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
-  padding-left: 10px;
-  margin-left: 2px;
-  border-left: 1px solid var(--line);
-  color: var(--text-2);
-  opacity: 0;
-  transform: translateX(-4px);
-  transition: 0.3s ease-in-out;
-}
-.card-work .visit::after { content: "↗"; }
-.card-work:hover .visit,
-.card-work:focus-visible .visit { opacity: 1; transform: none; }
-
-/* ---------- view more ---------- */
-
-.more {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: var(--s-6);
-}
-
-.more summary {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: var(--s-2);
-  align-self: center;
-  padding: 16px 24px;
-  border-radius: var(--r-pill);
-  border: 1px solid var(--line);
-  background: transparent;
-  color: var(--text);
-  font-size: 15px;
-  font-weight: 500;
-  line-height: 20px;
-  cursor: pointer;
-  list-style: none;
-  transition: 0.3s ease-in-out;
-}
-.more summary::-webkit-details-marker { display: none; }
-.more summary:hover { border-color: #4A4752; }
-.more .chev { width: 18px; height: 18px; color: var(--text-3); transition: transform 0.3s ease-in-out; }
-.more[open] .chev { transform: rotate(180deg); }
-.more .more-close { display: none; }
-.more[open] .more-open { display: none; }
-.more[open] .more-close { display: inline; }
-
-.card-work .shot {
+.figure img {
   width: 100%;
   height: auto;
-  aspect-ratio: 16 / 10;
-  object-fit: cover;
-  object-position: top center;
-  border-radius: 16px;
   border: 1px solid var(--line);
+  border-radius: var(--r-md);
   background: var(--bg);
 }
-.card-work .top {
-  display: flex;
-  flex-direction: column;
-  gap: var(--s-3);
-}
-.tag {
-  display: inline-flex;
-  padding: 6px 12px;
-  border-radius: 100px;
-  border: 1px solid var(--line);
-  font-size: 12px;
-  font-weight: 500;
-  letter-spacing: 0.4px;
-  color: var(--text-3);
-}
 
-.card-step { gap: var(--s-4); }
-.step-head {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+/* ---------- hero ---------- */
+
+.hero { position: relative; padding-block: clamp(96px, 12vw, 150px) var(--s-section); }
+.hero-grid { align-items: center; row-gap: 56px; }
+.hero-copy { grid-column: 1 / span 6; display: flex; flex-direction: column; gap: 26px; align-items: flex-start; }
+.hero h1 { max-width: 12ch; }
+.hero .lead { max-width: 44ch; }
+
+.facts { display: flex; flex-wrap: wrap; gap: 10px 28px; border-top: 1px solid var(--line); padding-top: 20px; width: 100%; }
+
+.hero-stage { grid-column: 7 / span 6; position: relative; aspect-ratio: 1; }
+.hero-stage canvas {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
   width: 100%;
-  gap: var(--s-3);
+  height: 100%;
+  cursor: grab;
+  touch-action: none;
+  user-select: none;
+  -webkit-user-select: none;
+  opacity: 0;
+  transition: opacity 0.9s var(--ease);
 }
+.hero-stage canvas.ready { opacity: 1; }
 
-/* ---------- statement card ---------- */
-
-.section.wide { width: 1048px; }
-
-.statement {
+/* the orbit is one ellipse split around the canvas: the moon occludes the
+   far arc, the near arc crosses its face. identical viewBox on both, so
+   they align with zero JS. */
+.orbit {
+  position: absolute;
+  inset: 0;
   width: 100%;
-  display: flex;
-  flex-direction: row;
-  align-items: flex-start;
-  justify-content: space-between;
-  gap: var(--s-7);
-  padding: 72px 64px;
-  border-radius: var(--r-card);
-  background: var(--surface);
-  border: 1px solid var(--line);
-  text-align: left;
+  height: 100%;
+  pointer-events: none;
 }
+.orbit-back  { z-index: 0; }
+.orbit-front { z-index: 2; }
+.orbit path   { fill: none; stroke: var(--line); stroke-width: 1; vector-effect: non-scaling-stroke; }
+.orbit circle { fill: var(--line); }
+.orbit .is-live { fill: var(--text); }
 
-.statement .display-l {
-  font-size: 62px;
-  line-height: 0.98;
-  letter-spacing: -2.4px;
-  padding-bottom: 4px;
-  flex: none;
+@media (prefers-reduced-motion: no-preference) {
+  .orbit g { animation: orbit-spin 180s linear infinite; transform-origin: 500px 500px; }
 }
-
-.statement .body-s {
-  font-size: 17px;
-  line-height: 1.6;
-  max-width: 420px;
-  color: var(--text-3);
-  padding-top: 10px;
+@keyframes orbit-spin {
+  from { transform: rotate(-14deg); }
+  to   { transform: rotate(346deg); }
 }
-
-/* ---------- faq ---------- */
-
-.faq {
-  width: 600px;
-  max-width: 100%;
-  display: flex;
-  flex-direction: column;
-  gap: var(--s-4);
-}
-
-.faq details {
-  border-radius: var(--r-card);
-  background: var(--surface);
-  border: 1px solid var(--line);
-  overflow: hidden;
-}
-
-.faq summary {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: var(--s-4);
-  padding: var(--s-4);
-  min-height: 80px;
-  font-size: 18px;
-  font-weight: 400;
-  line-height: 1.5;
-  text-align: left;
-  cursor: pointer;
-  list-style: none;
-  transition: 0.3s ease-in-out;
-}
-.faq summary::-webkit-details-marker { display: none; }
-.faq summary:hover { color: var(--text-2); }
-
-.faq .chev {
-  width: 20px;
-  height: 20px;
-  flex: none;
-  transition: transform 0.3s ease-in-out;
-  color: var(--text-3);
-}
-.faq details[open] .chev { transform: rotate(180deg); }
-
-.faq .answer {
-  padding: 0 var(--s-4) var(--s-4);
-  text-align: left;
-  color: var(--text-3);
-  font-size: 15px;
-  line-height: 1.5;
-}
-
-/* ---------- closing ---------- */
-
-.closing {
-  position: relative;
-  width: 700px;
-  max-width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: var(--s-5);
-  padding: 0 24px;
-  text-align: center;
-}
-
-footer {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: var(--s-2);
-  font-size: 13px;
-  color: var(--text-4);
-  text-align: center;
-}
-footer a {
-  display: inline-block;
-  padding: 13px 10px;
-  margin: -13px -10px;
-  color: var(--text-3);
-  transition: 0.3s ease-in-out;
-}
-footer a:hover { color: var(--text); }
-
-/* ---------- atmosphere ---------- */
 
 .glow {
   position: absolute;
   top: 50%;
-  right: 12%;
-  transform: translate(50%, -50%);
-  width: min(1100px, 118vw);
-  height: min(1100px, 118vw);
-  background: radial-gradient(ellipse at center, rgba(233,232,253,0.10), rgba(4,6,13,0) 62%);
-  pointer-events: none;
-  z-index: 0;
-}
-
-.closing > h2, .closing > a { position: relative; z-index: 1; }
-
-.closing-glow {
-  position: absolute;
-  top: -140px;
   left: 50%;
-  transform: translateX(-50%);
-  width: min(900px, 100vw);
-  height: min(500px, 78vw);
-  background: radial-gradient(ellipse at center, rgba(233,232,253,0.07), rgba(4,6,13,0) 70%);
+  width: min(760px, 92%);
+  aspect-ratio: 1;
+  transform: translate(-50%, -50%);
+  background: radial-gradient(circle at center, rgba(233,232,253,0.05), rgba(4,6,13,0) 62%);
   pointer-events: none;
   z-index: 0;
 }
+
+/* ---------- claim ---------- */
+
+.claim { border-top: 1px solid var(--line); padding-top: 40px; }
+.claim p { font-size: clamp(19px, 2.3vw, 24px); line-height: 1.5; color: var(--text-2); max-width: 62ch; }
+
+/* ---------- fit lists ---------- */
+
+.fit { grid-column: span 6; }
+.fit .rule-row { grid-template-columns: 1fr; padding: 18px 0; }
+.fit .rule-row p { color: var(--text-2); max-width: none; font-size: 16px; }
+.fit h3 { margin-bottom: 18px; }
+
+/* ---------- build log ---------- */
+
+.entry { border-top: 1px solid var(--line); padding-top: 40px; margin-top: 56px; row-gap: 32px; align-items: start; }
+.entry:first-of-type { margin-top: 0; }
+.entry .figure { grid-column: 1 / span 7; }
+.entry .body  { grid-column: 9 / span 4; display: flex; flex-direction: column; gap: 18px; }
+.entry.flip .figure { grid-column: 6 / span 7; grid-row: 1; }
+.entry.flip .body   { grid-column: 1 / span 4; grid-row: 1; }
+
+.entry dl { display: flex; flex-direction: column; gap: 12px; }
+.entry dt { margin-bottom: 3px; }
+.entry dd { color: var(--text-3); font-size: 16px; }
+
+.meta { display: flex; flex-wrap: wrap; gap: 10px 32px; border-top: 1px solid var(--line); padding-top: 16px; }
+.meta div { display: flex; flex-direction: column; gap: 4px; }
+.meta b { color: var(--text-2); font-weight: 400; font-size: var(--fs-meta); }
+
+.status { display: inline-flex; align-items: center; gap: 8px; }
+.status::before { content: ""; width: 5px; height: 5px; flex: none; }
+.status-launch { color: var(--text); }
+.status-launch::before { background: var(--text); }
+.status-shelf::before { border: 1px solid var(--text-3); }
+
+/* ---------- manifest ---------- */
+
+.manifest .rule-row { grid-template-columns: 3fr 5fr; align-items: baseline; }
+.manifest .rule-row:last-child { border-bottom: 1px solid var(--line); }
+.manifest p { color: var(--text-3); max-width: none; font-size: 16px; }
+.manifest .out b { color: var(--text-3); }
+
+/* ---------- fourteen days ---------- */
+
+.track { position: relative; height: 100px; margin-bottom: 8px; }
+.track svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+.track path { fill: none; stroke: var(--line); stroke-width: 1; vector-effect: non-scaling-stroke; }
+.dot { position: absolute; width: 7px; height: 7px; border-radius: 100px; background: var(--line); transform: translate(-50%, -50%); }
+.dot.key { width: 10px; height: 10px; background: var(--text); }
+.dot b { position: absolute; top: 14px; left: 50%; transform: translateX(-50%); font-size: 10px; font-weight: 500; letter-spacing: 0.1em; color: var(--text-3); }
+
+.day0 { display: flex; align-items: baseline; gap: 12px; margin-bottom: 18px; }
+
+.phases { row-gap: 28px; }
+.phase { grid-column: span 3; display: flex; flex-direction: column; gap: 8px; }
+.phase p { color: var(--text-3); font-size: 16px; max-width: none; }
+
+/* The draw-on uses clip-path, not stroke-dasharray: with
+   vector-effect: non-scaling-stroke the dash unit is screen pixels, not
+   viewBox units, so any fixed dasharray truncates the line at some widths.
+   Base state is fully visible, because the global reduced-motion rule kills
+   transitions and a hidden base state would never be revealed. */
+@media (prefers-reduced-motion: no-preference) {
+  .track svg { clip-path: inset(0 100% 0 0); }
+  .track.is-in svg { transition: clip-path 1.4s var(--ease); clip-path: inset(0 0 0 0); }
+  .dot { opacity: 0; transition: opacity .35s var(--ease); transition-delay: calc(var(--i) * 70ms); }
+  .track.is-in .dot { opacity: 1; }
+}
+
+/* ---------- investment + founder ---------- */
+
+.price { display: flex; flex-wrap: wrap; align-items: baseline; gap: 8px 16px; margin-bottom: 8px; }
+.price strong { font-size: clamp(34px, 5vw, 52px); font-weight: 500; letter-spacing: -0.03em; color: var(--text); }
+
+.terms { display: flex; flex-direction: column; gap: 0; margin-top: 28px; }
+.terms .rule-row { grid-template-columns: 1fr; padding: 16px 0; }
+.terms p { color: var(--text-3); font-size: 16px; max-width: none; }
+
+.founder { display: grid; grid-template-columns: 280px 1fr; gap: clamp(28px, 4vw, 56px); align-items: start; }
+.portrait {
+  aspect-ratio: 4 / 5;
+  border: 1px solid var(--line);
+  border-radius: var(--r-md);
+  background: var(--bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+.portrait img { width: 100%; height: 100%; object-fit: cover; }
+.founder-body { display: flex; flex-direction: column; gap: 18px; }
+.founder-body p { color: var(--text-3); }
+
+/* ---------- faq ---------- */
+
+.faq { max-width: 820px; }
+.faq details { border-top: 1px solid var(--line); }
+.faq details:last-of-type { border-bottom: 1px solid var(--line); }
+.faq summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 24px 0;
+  font-size: var(--fs-h3);
+  font-weight: 500;
+  color: var(--text);
+  cursor: pointer;
+  list-style: none;
+}
+.faq summary::-webkit-details-marker { display: none; }
+.faq summary:hover { color: var(--text-2); }
+.faq .chev { width: 18px; height: 18px; flex: none; color: var(--text-3); transition: transform .3s var(--ease); }
+.faq details[open] .chev { transform: rotate(180deg); }
+.faq .answer { padding: 0 0 26px; color: var(--text-3); }
+
+/* ---------- closing + footer ---------- */
+
+.closing { border-top: 1px solid var(--line); padding-top: 56px; display: flex; flex-direction: column; gap: 28px; align-items: flex-start; }
+.closing h2 { max-width: 16ch; }
+
+footer { border-top: 1px solid var(--line); padding-block: 40px 56px; margin-top: var(--s-section); }
+.foot { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 16px 32px; font-size: var(--fs-meta); color: var(--text-3); }
+footer a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  border-bottom: 1px solid var(--line);
+  padding-bottom: 2px;
+}
+footer a:hover { border-bottom-color: var(--text-3); }
 
 /* ---------- responsive ---------- */
 
-@media (max-width: 991px) {
-  .wrapper { gap: 120px; }
-  .display-xl { font-size: 60px; letter-spacing: -2.2px; }
-  .display-xl.closing { font-size: 64px; }
-  .display-xl.closing { letter-spacing: -1.6px; }
-  .display-l { font-size: 44px; letter-spacing: -0.9px; }
-  .display-m { font-size: 30px; }
-  .grid-3 { grid-template-columns: repeat(2, minmax(0, 1fr)); width: 100%; }
-  .section.wide { width: 1000px; }
-  .statement { flex-direction: column; gap: var(--s-4); padding: 48px 32px; }
-  .statement .display-l { font-size: 48px; letter-spacing: -1.8px; }
-  .statement .body-s { padding-top: 0; max-width: 100%; }
-  .grid-2 { grid-template-columns: minmax(0, 1fr); width: 100%; }
-  .section { gap: var(--s-5); }
-  /* stacked: planet on top, everything under it centred */
-  .hero { min-height: auto; flex-direction: column; text-align: center; }
-  .hero-stage {
-    position: relative;
-    inset: auto;
-    width: calc(100% + 2px);
-    min-width: 0;
-    margin: 0 -1px;
-    height: 420px;
-    order: 0;
-    /* fades the canvas block into the page instead of ending on a hard edge */
-    mask-image: linear-gradient(to bottom, transparent, #000 10%, #000 86%, transparent);
-    -webkit-mask-image: linear-gradient(to bottom, transparent, #000 10%, #000 86%, transparent);
-  }
-  /* stacked layout separates the text from the planet, so nothing needs veiling */
-  .hero-veil { display: none; }
-  .hero-inner {
-    order: 1;
-    padding: 8px 24px 24px;
-    gap: var(--s-5);
-    align-items: center;
-  }
-  .hero-stack { align-items: center; }
-  .hero-copy { align-items: center; }
-  .buttons { justify-content: center; }
-  .hero .lead { margin-inline: auto; }
-  .glow { top: 14%; right: 50%; width: 760px; height: 760px; }
-  .proof { gap: 12px 24px; max-width: 100%; justify-content: center; }
+@media (max-width: 1023px) {
+  /* stacked: the planet leads, as it does on the phone layout */
+  .hero { padding-top: clamp(72px, 9vw, 110px); }
+  .hero-copy  { grid-column: 1 / span 12; order: 1; }
+  /* width:100% is load bearing: every child is absolutely positioned, so
+     without it margin-inline:auto shrinks the item to zero and
+     aspect-ratio then gives it zero height */
+  .hero-stage { grid-column: 1 / span 12; order: 0; width: 100%; max-width: 420px; margin-inline: auto; }
+  .entry .figure, .entry.flip .figure { grid-column: 1 / span 12; grid-row: auto; }
+  .entry .body,   .entry.flip .body   { grid-column: 1 / span 12; grid-row: auto; }
+  .fit { grid-column: 1 / span 12; }
+  .phase { grid-column: span 6; }
 }
 
-@media (max-width: 600px) {
-  .display-xl { font-size: 40px; letter-spacing: -1.6px; }
-  .display-xl.closing { font-size: 40px; }
-  .display-xl.closing { letter-spacing: -1.2px; }
-  .display-l { font-size: 32px; letter-spacing: -0.6px; }
-  .lead, .section-head .body-s { font-size: 17px; }
-  .display-l { background-image: linear-gradient(7deg, #8E8DA0, #E9E8FD 60%); }
-  .grid-3 { grid-template-columns: minmax(0, 1fr); }
-  .statement { padding: 40px 24px; }
-  .hero-stage { height: 360px; }
-  .statement .display-l { font-size: 38px; letter-spacing: -1.4px; }
-  .buttons { width: 100%; flex-direction: column; align-items: stretch; }
-  .btn { width: 100%; }
-  .wrapper { gap: 96px; }
-  .faq summary { font-size: 16px; }
-  .more { gap: var(--s-5); }
-  .buttons .btn { width: 100%; }
-  .proof { gap: 12px 20px; justify-content: center; }
-  .proof span { font-size: 13px; }
+@media (max-width: 767px) {
+  .shell { width: min(100% - 32px, 1180px); }
+  .head { margin-bottom: 40px; }
+  .manifest .rule-row { grid-template-columns: 1fr; row-gap: 6px; }
+  .phase { grid-column: 1 / span 12; }
+  .founder { grid-template-columns: 1fr; }
+  .portrait { max-width: 260px; }
+
+  /* the ellipse does not fit 320px, so the arc becomes a vertical rail */
+  .track { display: none; }
+  .phases { position: relative; padding-left: 30px; row-gap: 0; }
+  .phases::before { content: ""; position: absolute; left: 3px; top: 8px; bottom: 8px; width: 1px; background: var(--line); }
+  .phase { position: relative; padding: 0 0 30px; }
+  .phase:last-child { padding-bottom: 0; }
+  .phase::before {
+    content: "";
+    position: absolute;
+    left: -30px;
+    top: 7px;
+    width: 7px;
+    height: 7px;
+    border-radius: 100px;
+    background: var(--text);
+  }
+  .actions { width: 100%; }
+  .actions .btn { width: 100%; }
+  .bar .btn { padding: 0 14px; }
+  .bar-full { display: none; }
+  .bar-short { display: inline; }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  * { animation: none !important; transition: none !important; }
+  * { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
 }
 </style>
 </head>
 <body>
+<a class="skip" href="#main">Skip to content</a>
 
-<main class="wrapper">
+<div class="bar" id="bar">
+  <div class="shell bar-inner">
+    <span class="logo">Ship<span>Fourteen</span></span>
+    <a class="btn btn-primary" href="https://cal.com/matuskalis/scoping-call" target="_blank" rel="noopener"><span class="bar-full">Book a scoping call</span><span class="bar-short">Book a call</span></a>
+  </div>
+</div>
 
-  <!-- hero -->
+<main id="main">
+
+  <!-- 01 hero -->
   <header class="hero">
-    <div class="hero-stage">
-      <canvas id="moon-stage" aria-hidden="true"></canvas>
-    </div>
-    <div class="glow" aria-hidden="true"></div>
-    <div class="hero-veil" aria-hidden="true"></div>
-
-    <div class="hero-inner">
-      <div class="logo">Ship<span>Fourteen</span></div>
-
-      <div class="hero-stack">
-        <div class="hero-copy">
-          <h1 class="display-xl">Websites shipped<br>in fourteen days</h1>
-          <p class="lead">Fixed scope, fixed timeline, no retainer. You own the code, the domain and the hosting on day fourteen.</p>
+    <div class="shell grid hero-grid">
+      <div class="hero-copy">
+        <span class="logo">Ship<span>Fourteen</span></span>
+        <h1>Websites shipped in fourteen days</h1>
+        <p class="lead">Fixed scope, fixed price, no retainer. You own the code, the domain and the hosting on day fourteen.</p>
+        <div class="actions">
+          <a class="btn btn-primary" href="https://cal.com/matuskalis/scoping-call" target="_blank" rel="noopener">Book a 30-minute scoping call</a>
+          <a class="btn btn-quiet" href="#log">See the build log</a>
         </div>
-
-        <div class="buttons">
-          <a class="btn btn-primary" href="#work">See recent work</a>
-          <a class="btn btn-secondary" href="https://cal.com/matuskalis/scoping-call" target="_blank" rel="noopener">Book a call</a>
+        <div class="facts">
+          <span class="label">Solo build</span>
+          <span class="label">Fixed scope</span>
+          <span class="label">14 days</span>
         </div>
-
       </div>
 
-      <div class="proof">
-        <span>VALORtech.AI</span>
-        <span>Tharseo IT</span>
-        <span>Sentinel VI</span>
-        <span>SPPK</span>
-        <span>Awesome by Choice</span>
-        <span>Legal Systems</span>
+      <div class="hero-stage">
+        <div class="glow" aria-hidden="true"></div>
+        <svg class="orbit orbit-back" viewBox="0 0 1000 1000" preserveAspectRatio="xMidYMid meet" aria-hidden="true"><g transform="rotate(-14 500 500)"><path d="M40 500A460 170 0 0 1 960 500"/><circle cx="500.0" cy="330.0" r="3.5"/><circle cx="699.59" cy="346.84" r="3.5"/><circle cx="859.64" cy="394.01" r="3.5"/><circle cx="948.47" cy="462.17" r="3.5"/><circle cx="51.53" cy="462.17" r="3.5"/><circle cx="140.36" cy="394.01" r="3.5"/><circle cx="300.41" cy="346.84" r="3.5"/></g></svg>
+        <canvas id="moon-stage" aria-hidden="true"></canvas>
+        <svg class="orbit orbit-front" viewBox="0 0 1000 1000" preserveAspectRatio="xMidYMid meet" aria-hidden="true"><g transform="rotate(-14 500 500)"><path d="M960 500A460 170 0 0 1 40 500"/><circle cx="948.47" cy="537.83" r="3.5"/><circle cx="859.64" cy="605.99" r="3.5"/><circle cx="699.59" cy="653.16" r="3.5"/><circle cx="500.0" cy="670.0" r="5" class="is-live"/><circle cx="300.41" cy="653.16" r="3.5"/><circle cx="140.36" cy="605.99" r="3.5"/><circle cx="51.53" cy="537.83" r="3.5"/></g></svg>
       </div>
     </div>
+    <span id="sentinel" aria-hidden="true"></span>
   </header>
 
-  <!-- work -->
-  <section class="section" id="work">
-    <div class="section-head">
-      <h2 class="display-l">Recent work</h2>
-      <p class="body-s">Sites built end to end. Design, build, content, launch. Every one of these is live, open any of them.</p>
+  <!-- 02 the claim -->
+  <section class="section">
+    <div class="shell claim">
+      <p>I am one person who designs, writes and builds the whole thing. That is the reason it takes fourteen days instead of four months, and it is also the reason I turn down work that does not fit. Everything below is checkable, including the parts that are not flattering.</p>
     </div>
+  </section>
 
-    <div class="grid-3">
-      <a class="card card-work" href="https://sentinel-vi.org" target="_blank" rel="noopener">
-        <img class="shot" src="./assets/work-sentinel.webp" alt="Sentinel VI Foundation home page: a veteran photographed against a US flag, with the headline No hero walks alone" width="640" height="400" loading="lazy" decoding="async">
-        <div class="top">
-          <div class="body-l">Sentinel VI Foundation</div>
-          <div class="body-s">Non-profit supporting veterans and first responders. Scholarships, microgrants and placement, all applied for from the site.</div>
-        </div>
-        <span class="tag">Next.js<span class="visit">Visit</span></span>
-      </a>
-
-      <a class="card card-work" href="https://valortech-ai.vercel.app" target="_blank" rel="noopener">
-        <img class="shot" src="./assets/work-valortech.webp" alt="VALORtech.AI home page: a large headline over a network diagram, with a dark compliance status panel on the right" width="640" height="400" loading="lazy" decoding="async">
-        <div class="top">
-          <div class="body-l">VALORtech.AI</div>
-          <div class="body-s">US federal AI and data engineering contractor. Built to survive procurement scrutiny and load on government networks.</div>
-        </div>
-        <span class="tag">Next.js<span class="visit">Visit</span></span>
-      </a>
-
-      <a class="card card-work" href="https://tharseo-it.vercel.app" target="_blank" rel="noopener">
-        <img class="shot" src="./assets/work-tharseo.webp" alt="Tharseo IT home page: lime green Oracle Cloud headline over a dark halftone background, with a row of result figures" width="640" height="400" loading="lazy" decoding="async">
-        <div class="top">
-          <div class="body-l">Tharseo IT</div>
-          <div class="body-s">Oracle Cloud partner for federal and enterprise. Motion led scroll, with the animation libraries loaded on demand instead of on every page.</div>
-        </div>
-        <span class="tag">Next.js, GSAP<span class="visit">Visit</span></span>
-      </a>
-    </div>
-
-    <details class="more">
-      <summary>
-        <span class="more-open">Three more</span>
-        <span class="more-close">Show less</span>
-        <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
-      </summary>
-
-      <div class="grid-3 more-grid">
-        <a class="card card-work" href="https://sppk-redesign.vercel.app" target="_blank" rel="noopener">
-          <img class="shot" src="./assets/work-sppk.webp" alt="SPPK home page: the lead article with a photograph, a full topic menu above it and a sidebar of most-read stories" width="640" height="400" loading="lazy" decoding="async">
-          <div class="top">
-            <div class="body-l">SPPK</div>
-            <div class="body-s">Slovak agriculture and food chamber. Full rebuild, navigation and content restructured before a single pixel was drawn.</div>
-          </div>
-          <span class="tag">Rebuild<span class="visit">Visit</span></span>
-        </a>
-
-        <a class="card card-work" href="https://petrzalska-posilka.vercel.app" target="_blank" rel="noopener">
-          <img class="shot" src="./assets/work-petrzalska.webp" alt="Petrzalska posilka home page: a dark gym interior behind the headline Silnejsi s kazdym treningom" width="640" height="400" loading="lazy" decoding="async">
-          <div class="top">
-            <div class="body-l">Petržalská posilka</div>
-            <div class="body-s">Neighbourhood gym in Bratislava. Schedule, pricing and a trial booking, built to be read on a phone at the door.</div>
-          </div>
-          <span class="tag">Static<span class="visit">Visit</span></span>
-        </a>
-
-        <a class="card card-work" href="https://matuskalis.com" target="_blank" rel="noopener">
-          <img class="shot" src="./assets/work-matuskalis.webp" alt="matuskalis.com home page: monospaced type on black with the headline Crafting Digital Experiences With Code" width="640" height="400" loading="lazy" decoding="async">
-          <div class="top">
-            <div class="body-l">matuskalis.com</div>
-            <div class="body-s">My own portfolio. Monospaced, black, no images. The restraint is the point.</div>
-          </div>
-          <span class="tag">Next.js<span class="visit">Visit</span></span>
-        </a>
+  <!-- 03 fit -->
+  <section class="section">
+    <div class="shell">
+      <div class="head">
+        <p class="label">01 / Fit</p>
+        <h2>Who this is for</h2>
+        <p>Saying no to the wrong project is most of what keeps a fourteen day promise honest.</p>
       </div>
-    </details>
-
-    <a class="btn btn-ghost" href="https://cal.com/matuskalis/scoping-call" target="_blank" rel="noopener">Ask for the full portfolio</a>
-  </section>
-
-  <!-- statement -->
-  <section class="section wide" id="craft">
-    <div class="statement">
-      <h2 class="display-l">Built<br>from scratch.</h2>
-      <p class="body-s">Every site is assembled by hand, from the layout down to the last shader. Nothing bought off a marketplace, nothing you outgrow in six months. When the brief changes in month four, you change the code, not the subscription.</p>
-    </div>
-  </section>
-
-  <!-- what you get -->
-  <section class="section">
-    <div class="section-head">
-      <h2 class="display-l">What you get</h2>
-      <p class="body-s">One scope, one price, one date. Nothing to renegotiate halfway through.</p>
-    </div>
-
-    <div class="grid-3">
-      <article class="card">
-        <div class="card-num"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="20" height="20" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="3"/><path d="M8 3v4M16 3v4M3 11h18"/></svg></div>
-        <div class="body-l">Fourteen days to live</div>
-        <div class="body-s">Kickoff on day one, your site answering on your domain on day fourteen. The date is in the contract, not in a status update.</div>
-      </article>
-
-      <article class="card">
-        <div class="card-num"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="20" height="20" aria-hidden="true"><path d="M17 6.5A6 6 0 1 0 17 17.5"/><path d="M4 10.5h9M4 13.5h9"/></svg></div>
-        <div class="body-l">Fixed price, quoted first</div>
-        <div class="body-s">You get a written scope and a number before anything starts. No hourly billing, no change order for a paragraph rewrite.</div>
-      </article>
-
-      <article class="card">
-        <div class="card-num"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="20" height="20" aria-hidden="true"><path d="M15.5 8.5a4 4 0 1 0-4 4"/><path d="M11.5 12.5 5 19v2.5h3v-2h2v-2h2l1.5-1.5"/></svg></div>
-        <div class="body-l">You own everything</div>
-        <div class="body-s">Repo, domain, hosting and analytics live in your accounts. Leave whenever you want and take all of it with you.</div>
-      </article>
-
-      <article class="card">
-        <div class="card-num"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="20" height="20" aria-hidden="true"><path d="M12 3 3 8l9 5 9-5-9-5Z"/><path d="m3 14 9 5 9-5"/></svg></div>
-        <div class="body-l">No page builder underneath</div>
-        <div class="body-s">Hand built pages, no template plugin stack to keep paying for. What ships is what runs.</div>
-      </article>
-
-      <article class="card">
-        <div class="card-num"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="20" height="20" aria-hidden="true"><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L8 18l-4 1 1-4 11.5-11.5Z"/></svg></div>
-        <div class="body-l">Copy included</div>
-        <div class="body-s">Words are part of the build, not homework you get handed on day twelve. English or Slovak.</div>
-      </article>
-
-      <article class="card">
-        <div class="card-num"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="20" height="20" aria-hidden="true"><path d="M20 7 10 17l-5-5"/></svg></div>
-        <div class="body-l">Two weeks of fixes</div>
-        <div class="body-s">Fourteen days of bug fixes after launch, included. Whatever breaks, I fix it.</div>
-      </article>
-    </div>
-  </section>
-
-  <!-- process -->
-  <section class="section">
-    <div class="section-head">
-      <h2 class="display-l">How it runs</h2>
-      <p class="body-s">Three steps. You are in exactly two meetings.</p>
-    </div>
-
-    <div class="grid-3">
-      <article class="card card-step">
-        <div class="step-head">
-          <div class="display-m">01</div>
-          <span class="tag">Day 00</span>
+      <div class="grid">
+        <div class="fit">
+          <h3>This fits</h3>
+          <div class="rule-row"><p>You sell something specific and can say who buys it.</p></div>
+          <div class="rule-row"><p>One person can approve the work without a committee.</p></div>
+          <div class="rule-row"><p>The site is five to fifteen pages, not five hundred.</p></div>
+          <div class="rule-row"><p>You want to own the result outright, code and accounts.</p></div>
+          <div class="rule-row"><p>You can give me two hours across the fortnight.</p></div>
         </div>
-        <div class="body-l">Scoping call</div>
-        <div class="body-s">Thirty minutes. We agree what the site has to do and who it has to convince. You get the scope and the fixed price in writing within a day.</div>
+        <div class="fit">
+          <h3>This does not</h3>
+          <div class="rule-row"><p>A shop with hundreds of products and live stock.</p></div>
+          <div class="rule-row"><p>An ongoing marketing retainer, not a build.</p></div>
+          <div class="rule-row"><p>A brand identity from zero, logo included.</p></div>
+          <div class="rule-row"><p>Anything needing regulated compliance sign-off.</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 04 build log -->
+  <section class="section" id="log">
+    <div class="shell">
+      <div class="head">
+        <p class="label">02 / Build log</p>
+        <h2>Six builds</h2>
+        <p>One is a paying client's live site. The rest are redesigns and concepts I built to prove the process. Each entry says which it is, and the redesigns link the site they would replace so you can judge for yourself.</p>
+      </div>
+
+      <article class="entry grid">
+        <div class="figure">
+          <img src="./assets/work-sentinel.webp" alt="Sentinel VI Foundation home page: a veteran photographed against a US flag under the line No hero walks alone" width="640" height="400" loading="lazy" decoding="async">
+        </div>
+        <div class="body">
+          <p class="label">2025</p>
+          <h3>Sentinel VI Foundation</h3>
+          <dl>
+            <div><dt class="label">Brief</dt><dd>A veterans and first responders foundation whose support programmes were being run over email.</dd></div>
+            <div><dt class="label">Built</dt><dd>Scholarships, emergency microgrants and career placement, each applied for on the site. Public pages for the programmes, private handling behind them.</dd></div>
+          </dl>
+          <div class="meta">
+            <div><span class="label">Status</span><b class="status status-launch">Client launch</b></div>
+            <div><span class="label">Stack</span><b>Next.js</b></div>
+          </div>
+          <div class="actions">
+            <a class="link" href="https://sentinel-vi.org" target="_blank" rel="noopener">Open sentinel-vi.org<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg></a>
+            
+          </div>
+        </div>
       </article>
 
-      <article class="card card-step">
-        <div class="step-head">
-          <div class="display-m">02</div>
-          <span class="tag">Day 01 to 11</span>
+      <article class="entry grid flip">
+        <div class="figure">
+          <img src="./assets/work-valortech.webp" alt="VALORtech.AI home page: a large headline over a network diagram with a dark compliance status panel" width="640" height="400" loading="lazy" decoding="async">
         </div>
-        <div class="body-l">Build</div>
-        <div class="body-s">Design and code together, on a live preview URL you can open any time. One review at the midpoint, so nothing lands as a surprise.</div>
+        <div class="body">
+          <p class="label">2025</p>
+          <h3>VALORtech.AI</h3>
+          <dl>
+            <div><dt class="label">Brief</dt><dd>A US federal AI and data engineering contractor that needed to survive procurement scrutiny before a human ever read the copy.</dd></div>
+            <div><dt class="label">Built</dt><dd>A compliance-forward home page: authorisation status, certifications and clearance stated in the first screen rather than buried in a PDF.</dd></div>
+          </dl>
+          <div class="meta">
+            <div><span class="label">Status</span><b class="status status-shelf">Unlaunched redesign</b></div>
+            <div><span class="label">Stack</span><b>Next.js</b></div>
+          </div>
+          <div class="actions">
+            <a class="link" href="https://valortech-ai.vercel.app" target="_blank" rel="noopener">Open the build<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg></a>
+            <a class="link" href="https://www.valortech.ai" target="_blank" rel="noopener">Compare to www.valortech.ai<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg></a>
+          </div>
+        </div>
       </article>
 
-      <article class="card card-step">
-        <div class="step-head">
-          <div class="display-m">03</div>
-          <span class="tag">Day 12 to 14</span>
+      <article class="entry grid">
+        <div class="figure">
+          <img src="./assets/work-tharseo.webp" alt="Tharseo IT home page: a lime green Oracle Cloud headline over a dark halftone background above a row of result figures" width="640" height="400" loading="lazy" decoding="async">
         </div>
-        <div class="body-l">Launch</div>
-        <div class="body-s">Domain, analytics, forms and handover docs. Your team gets the keys, plus two weeks of fixes on me.</div>
+        <div class="body">
+          <p class="label">2025</p>
+          <h3>Tharseo IT</h3>
+          <dl>
+            <div><dt class="label">Brief</dt><dd>An Oracle Cloud partner selling to federal agencies and enterprises, where the existing site read as a generic IT shop.</dd></div>
+            <div><dt class="label">Built</dt><dd>A motion-led scroll with the animation libraries loaded on demand instead of on every page, so the movement costs nothing on first paint.</dd></div>
+          </dl>
+          <div class="meta">
+            <div><span class="label">Status</span><b class="status status-shelf">Unlaunched redesign</b></div>
+            <div><span class="label">Stack</span><b>Next.js, GSAP</b></div>
+          </div>
+          <div class="actions">
+            <a class="link" href="https://tharseo-it.vercel.app" target="_blank" rel="noopener">Open the build<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg></a>
+            <a class="link" href="https://tharseoit.com" target="_blank" rel="noopener">Compare to tharseoit.com<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg></a>
+          </div>
+        </div>
+      </article>
+
+      <article class="entry grid flip">
+        <div class="figure">
+          <img src="./assets/work-sppk.webp" alt="SPPK home page: the lead article with a photograph, a full topic menu above it and a sidebar of most-read stories" width="640" height="400" loading="lazy" decoding="async">
+        </div>
+        <div class="body">
+          <p class="label">2025</p>
+          <h3>SPPK</h3>
+          <dl>
+            <div><dt class="label">Brief</dt><dd>The Slovak agriculture and food chamber, a large content site where the menu had stopped matching the sitemap.</dd></div>
+            <div><dt class="label">Built</dt><dd>Navigation and content restructured before a single pixel was drawn, then rebuilt around the articles people actually open.</dd></div>
+          </dl>
+          <div class="meta">
+            <div><span class="label">Status</span><b class="status status-shelf">Unlaunched redesign</b></div>
+            <div><span class="label">Stack</span><b>Rebuild</b></div>
+          </div>
+          <div class="actions">
+            <a class="link" href="https://sppk-redesign.vercel.app" target="_blank" rel="noopener">Open the build<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg></a>
+            <a class="link" href="https://sppk.sk" target="_blank" rel="noopener">Compare to sppk.sk<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg></a>
+          </div>
+        </div>
+      </article>
+
+      <article class="entry grid">
+        <div class="figure">
+          <img src="./assets/work-petrzalska.webp" alt="Petrzalska posilka home page: a dark gym interior behind the headline Silnejsi s kazdym treningom" width="640" height="400" loading="lazy" decoding="async">
+        </div>
+        <div class="body">
+          <p class="label">2025</p>
+          <h3>Petržalská posilka</h3>
+          <dl>
+            <div><dt class="label">Brief</dt><dd>A neighbourhood gym in Bratislava. Built speculatively, before the call, to show rather than describe.</dd></div>
+            <div><dt class="label">Built</dt><dd>Schedule, pricing and a trial booking, laid out to be read on a phone while standing at the door.</dd></div>
+          </dl>
+          <div class="meta">
+            <div><span class="label">Status</span><b class="status status-shelf">Concept</b></div>
+            <div><span class="label">Stack</span><b>Static HTML</b></div>
+          </div>
+          <div class="actions">
+            <a class="link" href="https://petrzalska-posilka.vercel.app" target="_blank" rel="noopener">Open the build<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg></a>
+            
+          </div>
+        </div>
+      </article>
+
+      <article class="entry grid flip">
+        <div class="figure">
+          <img src="./assets/work-matuskalis.webp" alt="matuskalis.com home page: monospaced type on black under the headline Crafting Digital Experiences With Code" width="640" height="400" loading="lazy" decoding="async">
+        </div>
+        <div class="body">
+          <p class="label">2025</p>
+          <h3>matuskalis.com</h3>
+          <dl>
+            <div><dt class="label">Brief</dt><dd>My own site, and the only entry here nobody asked for.</dd></div>
+            <div><dt class="label">Built</dt><dd>Monospaced, black, no photography. Included because it is the clearest evidence of what I do when there is no brief to answer to.</dd></div>
+          </dl>
+          <div class="meta">
+            <div><span class="label">Status</span><b class="status status-shelf">Personal project</b></div>
+            <div><span class="label">Stack</span><b>Next.js</b></div>
+          </div>
+          <div class="actions">
+            <a class="link" href="https://matuskalis.com" target="_blank" rel="noopener">Open matuskalis.com<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg></a>
+            
+          </div>
+        </div>
       </article>
     </div>
   </section>
 
-  <!-- faq -->
+  <!-- 05 manifest -->
   <section class="section">
-    <div class="section-head">
-      <h2 class="display-l">Questions</h2>
-    </div>
-
-    <div class="faq">
-      <details>
-        <summary>
-          What if fourteen days is not enough for my site?
-          <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
-        </summary>
-        <div class="answer">Then we cut the first release down to what fits, and the rest becomes a second sprint. A real site live in two weeks beats a perfect one still in review after two quarters.</div>
-      </details>
-
-      <details>
-        <summary>
-          Who writes the content?
-          <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
-        </summary>
-        <div class="answer">I do, from the scoping call and whatever you already have. You review and correct the facts. If you would rather write it yourself, that works too and the price drops.</div>
-      </details>
-
-      <details>
-        <summary>
-          Can we edit the site ourselves afterwards?
-          <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
-        </summary>
-        <div class="answer">Yes. If you need to change text and images regularly, we wire in a CMS during the build and you get a short handover walkthrough. If the site is static by nature, we skip the CMS and skip its cost.</div>
-      </details>
-
-      <details>
-        <summary>
-          What does it cost?
-          <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
-        </summary>
-        <div class="answer">It depends on how many pages and how much of the content already exists, so I quote it after the call rather than posting a number that fits nobody. Half upfront, half on launch.</div>
-      </details>
-
-      <details>
-        <summary>
-          We already have a site. Can you rebuild it?
-          <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
-        </summary>
-        <div class="answer">That is most of the work I do. We keep what already earns its place, restructure what does not, and move you off whatever is slowing the current site down.</div>
-      </details>
+    <div class="shell">
+      <div class="head">
+        <p class="label">03 / Manifest</p>
+        <h2>What is on board</h2>
+        <p>The full line item list, including the last row.</p>
+      </div>
+      <div class="manifest">
+        <div class="rule-row"><b class="label">Structure and copy</b><p>Sitemap, page structure and every word on the page. In English or Slovak.</p></div>
+        <div class="rule-row"><b class="label">Design</b><p>Designed in the browser, not handed over as a picture of a website.</p></div>
+        <div class="rule-row"><b class="label">Build</b><p>Hand written pages. No page builder and no template plugin stack to keep paying for.</p></div>
+        <div class="rule-row"><b class="label">Responsive to 320px</b><p>Checked at 320, 390, 768 and 1440, not left to a framework.</p></div>
+        <div class="rule-row"><b class="label">Launch</b><p>Domain, DNS, hosting, analytics and forms, wired and tested.</p></div>
+        <div class="rule-row"><b class="label">Handover</b><p>Repo, accounts and a written walkthrough. Everything in your name.</p></div>
+        <div class="rule-row"><b class="label">Fourteen days of fixes</b><p>After launch. Whatever breaks in that window, I fix.</p></div>
+        <div class="rule-row out"><b class="label">Not included</b><p>Ongoing marketing, ad campaigns, SEO retainers, logo and brand identity from zero, photography, and shops beyond a simple catalogue.</p></div>
+      </div>
     </div>
   </section>
 
-  <!-- closing -->
-  <section class="closing">
-    <div class="closing-glow" aria-hidden="true"></div>
-    <h2 class="display-xl closing">Let’s ship yours</h2>
-    <a class="btn btn-primary" href="https://cal.com/matuskalis/scoping-call" target="_blank" rel="noopener">Book a call</a>
+  <!-- 06 fourteen days -->
+  <section class="section">
+    <div class="shell">
+      <div class="head">
+        <p class="label">04 / Schedule</p>
+        <h2>Fourteen days</h2>
+        <p>The clock starts after the scoping call, not before it.</p>
+      </div>
+
+      <div class="day0">
+        <span class="label">Day 0</span>
+        <p>Scoping call. Scope and fixed price in writing before anything begins.</p>
+      </div>
+
+      <div class="track" id="track">
+        <svg viewBox="0 0 1000 100" preserveAspectRatio="none" aria-hidden="true">
+          <path d="M0 88C250 4 750 4 1000 88"/>
+        </svg>
+        <span class="dot key" style="left:2.9%;top:79.0px;--i:0"><b>1</b></span>
+        <span class="dot" style="left:10.0%;top:61.4px;--i:1"><b>2</b></span>
+        <span class="dot" style="left:17.19%;top:48.3px;--i:2"><b>3</b></span>
+        <span class="dot key" style="left:24.44%;top:38.7px;--i:3"><b>4</b></span>
+        <span class="dot" style="left:31.73%;top:31.8px;--i:4"><b>5</b></span>
+        <span class="dot" style="left:39.03%;top:27.4px;--i:5"><b>6</b></span>
+        <span class="dot" style="left:46.34%;top:25.3px;--i:6"><b>7</b></span>
+        <span class="dot" style="left:53.66%;top:25.3px;--i:7"><b>8</b></span>
+        <span class="dot key" style="left:60.97%;top:27.4px;--i:8"><b>9</b></span>
+        <span class="dot" style="left:68.27%;top:31.8px;--i:9"><b>10</b></span>
+        <span class="dot" style="left:75.56%;top:38.7px;--i:10"><b>11</b></span>
+        <span class="dot" style="left:82.81%;top:48.3px;--i:11"><b>12</b></span>
+        <span class="dot" style="left:90.0%;top:61.4px;--i:12"><b>13</b></span>
+        <span class="dot key" style="left:97.1%;top:79.0px;--i:13"><b>14</b></span>
+      </div>
+
+      <div class="grid phases">
+        <div class="phase">
+          <p class="label">Day 1 to 3</p>
+          <h3>Structure and copy</h3>
+          <p>Sitemap agreed, every page written. Nothing is designed until the words exist.</p>
+        </div>
+        <div class="phase">
+          <p class="label">Day 4 to 9</p>
+          <h3>Design and build</h3>
+          <p>Built in the browser on a live preview URL you can open at any hour.</p>
+        </div>
+        <div class="phase">
+          <p class="label">Day 10 to 12</p>
+          <h3>Review and fixes</h3>
+          <p>One round of changes against the preview. Content locked at the end of day 12.</p>
+        </div>
+        <div class="phase">
+          <p class="label">Day 13 to 14</p>
+          <h3>Launch</h3>
+          <p>Domain, analytics, forms, handover. Then fourteen days of fixes on me.</p>
+        </div>
+      </div>
+    </div>
   </section>
 
-  <footer>
-    <div>© 2026 ShipFourteen. Built by Matúš Kališ.</div>
-    <div><a href="mailto:m3kalis@gmail.com">m3kalis@gmail.com</a></div>
-  </footer>
+  <!-- 07 investment -->
+  <section class="section">
+    <div class="shell">
+      <div class="head">
+        <p class="label">05 / Investment</p>
+        <h2>What it costs</h2>
+      </div>
+      <div class="panel">
+        <div class="price">
+          <strong>From 300 EUR</strong>
+          <span class="label">Fixed before day one</span>
+        </div>
+        <p>The final number depends on how many pages there are and how much of the content already exists. It is quoted in writing after the call and does not move afterwards.</p>
+        <div class="terms">
+          <div class="rule-row"><p>Half to start, half on launch.</p></div>
+          <div class="rule-row"><p>If the midpoint review is not what you wanted, you stop and pay only the first half.</p></div>
+          <div class="rule-row"><p>Fourteen days of fixes after launch are included, not billed.</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 08 founder -->
+  <section class="section">
+    <div class="shell">
+      <div class="head">
+        <p class="label">06 / Who builds it</p>
+        <h2>Matúš Kališ</h2>
+      </div>
+      <div class="panel founder">
+        <div class="portrait"><span class="label">Photo</span></div>
+        <div class="founder-body">
+          <p>I am eighteen, I work on this full time, and there is nobody else. You talk to the person writing the code, which is the whole reason the schedule holds.</p>
+          <p>The work above is what I have. One paying client's site is live, three are redesigns waiting on their owners, and two I built without being asked. I would rather show you that and let you check it than describe a team that does not exist.</p>
+          <p>Based in Bratislava. I work in English and Slovak.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 09 questions -->
+  <section class="section">
+    <div class="shell">
+      <div class="head">
+        <p class="label">07 / Questions</p>
+        <h2>The awkward ones first</h2>
+      </div>
+      <div class="faq">
+        <details>
+          <summary>Only one of these is a live client site. Why trust the process?<svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></summary>
+          <div class="answer"><p>Because you can check the rest yourself. Three of them are redesigns of sites that are still live, and each entry links the site it would replace, so you can put them side by side and judge. Beyond that the risk is capped: half up front, half on launch. If the midpoint review is not what you wanted, you stop and pay only the first half.</p></div>
+        </details>
+        <details>
+          <summary>What if fourteen days is not enough for my site?<svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></summary>
+          <div class="answer"><p>Then we cut the first release down to what fits and the rest becomes a second sprint. A real site live in two weeks beats a perfect one still in review after two quarters.</p></div>
+        </details>
+        <details>
+          <summary>Who writes the content?<svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></summary>
+          <div class="answer"><p>I do, from the scoping call and whatever you already have. You review and correct the facts. If you would rather write it yourself, that works and the price drops.</p></div>
+        </details>
+        <details>
+          <summary>Can we edit the site ourselves afterwards?<svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></summary>
+          <div class="answer"><p>Yes. If you need to change text and images regularly we wire in a CMS during the build and you get a short handover walkthrough. If the site is static by nature we skip the CMS and skip its cost.</p></div>
+        </details>
+        <details>
+          <summary>What does it actually cost?<svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></summary>
+          <div class="answer"><p>It starts at 300 EUR and the final number depends on how many pages there are and how much of the content already exists. You get the scope and the fixed price in writing before day one, so the number never moves after we start.</p></div>
+        </details>
+        <details>
+          <summary>We already have a site. Can you rebuild it?<svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></summary>
+          <div class="answer"><p>That is most of the work here. We keep what already earns its place, restructure what does not, and move you off whatever is slowing the current site down.</p></div>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- 10 closing -->
+  <section class="section">
+    <div class="shell closing">
+      <h2>Book a 30-minute scoping call</h2>
+      <p>We work out what the site has to do and who it has to convince. You get the scope and a fixed price in writing, whether or not we go ahead.</p>
+      <div class="actions">
+        <a class="btn btn-primary" href="https://cal.com/matuskalis/scoping-call" target="_blank" rel="noopener">Book the call</a>
+        <a class="btn btn-quiet" href="mailto:m3kalis@gmail.com">Email instead</a>
+      </div>
+    </div>
+  </section>
 
 </main>
 
+<footer>
+  <div class="shell foot">
+    <span>&copy; 2026 ShipFourteen. Built by Matúš Kališ.</span>
+    <a href="mailto:m3kalis@gmail.com">m3kalis@gmail.com</a>
+    <span>Moon textures: NASA Scientific Visualization Studio</span>
+  </div>
+</footer>
 
-
-
+<script>
+(function () {
+  var bar = document.getElementById('bar');
+  var sentinel = document.getElementById('sentinel');
+  if (bar && sentinel) {
+    // only once the hero has been scrolled PAST, not merely while the
+    // sentinel is off screen, which is also true before you reach it
+    new IntersectionObserver(function (e) {
+      var r = e[0];
+      bar.classList.toggle('is-on', !r.isIntersecting && r.boundingClientRect.top < 0);
+    }).observe(sentinel);
+  }
+  var track = document.getElementById('track');
+  if (track) {
+    var io = new IntersectionObserver(function (e) {
+      if (e[0].isIntersecting) { track.classList.add('is-in'); io.disconnect(); }
+    }, { threshold: 0.35 });
+    io.observe(track);
+  }
+})();
+</script>
 
 <script type="importmap">
 {
@@ -1018,7 +937,7 @@ async function boot() {
   const RADIUS = 2.0;
   const GROUP_SCALE = 1.2;
   const FOV = 45;
-  const TARGET = 0.25;            // moon radius as a fraction of min(w, h)
+  const TARGET = 0.30;            // moon radius as a fraction of min(w, h)
   const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   const stage = canvas.parentElement;
