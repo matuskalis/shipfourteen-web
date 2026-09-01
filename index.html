@@ -547,6 +547,29 @@ body.dragging * {
   padding-top: 10px;
 }
 
+/* ---------- what you get: two primary, three secondary ---------- */
+
+/* This section leaves the fixed 304px track behind: the first two claims
+   decide the sale, so they get more room than the other three. */
+#what-you-get .grid-3 {
+  width: 100%;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  justify-content: stretch;
+}
+#what-you-get .card { grid-column: span 2; min-width: 0; }
+#what-you-get .card:nth-child(-n + 2) { grid-column: span 3; }
+
+.excluded {
+  grid-column: 1 / -1;
+  display: flex;
+  align-items: flex-start;
+  gap: var(--s-3);
+  min-width: 0;
+  text-align: left;
+  padding-top: var(--s-2);
+}
+.excluded .tag { flex: none; }
+
 /* ---------- fourteen days ---------- */
 
 .day0 {
@@ -733,6 +756,12 @@ footer a:hover { color: var(--text); }
   .display-l { font-size: 44px; letter-spacing: -0.9px; }
   .display-m { font-size: 30px; }
   .grid-3 { grid-template-columns: repeat(2, minmax(0, 1fr)); width: 100%; }
+  #what-you-get .grid-3 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  #what-you-get .card, #what-you-get .card:nth-child(-n + 2) { grid-column: auto; }
+  /* five cards over two columns leaves the last one orphaned beside a hole,
+     so it closes the row instead */
+  #what-you-get .card:nth-child(-n + 2),
+  #what-you-get .card:last-of-type:nth-of-type(odd) { grid-column: 1 / -1; }
   .phases { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .section.wide { width: 1000px; }
   .statement { flex-direction: column; gap: var(--s-4); padding: 48px 32px; }
@@ -785,6 +814,9 @@ footer a:hover { color: var(--text); }
   .lead, .section-head .body-s { font-size: 17px; }
   .display-l { background-image: linear-gradient(7deg, #8E8DA0, #E9E8FD 60%); }
   .grid-3 { grid-template-columns: minmax(0, 1fr); }
+  #what-you-get .grid-3 { grid-template-columns: minmax(0, 1fr); }
+  #what-you-get .card:nth-child(-n + 2) { grid-column: auto; }
+  .excluded { flex-direction: column; gap: var(--s-2); }
   /* a 1000:100 arc is unreadable at this width, so it becomes a rail */
   .track { display: none; }
   .phases {
@@ -954,54 +986,53 @@ footer a:hover { color: var(--text); }
   <!-- statement -->
   <section class="section wide" id="craft">
     <div class="statement">
-      <h2 class="display-l">Built<br>from scratch.</h2>
-      <p class="body-s">Every site is assembled by hand, from the layout down to the last shader. Nothing bought off a marketplace, nothing you outgrow in six months. When the brief changes in month four, you change the code, not the subscription.</p>
+      <h2 class="display-l">One person,<br>start to finish.</h2>
+      <p class="body-s">I’m Matúš Kališ, based in Bratislava, and I work in English and Slovak. I scope, write, design and build every site myself. The fourteen-day schedule works because the scope is agreed before work starts and there are no internal handovers between sales, design and development.</p>
     </div>
   </section>
 
   <!-- what you get -->
-  <section class="section">
+  <section class="section" id="what-you-get">
     <div class="section-head">
       <h2 class="display-l">What you get</h2>
-      <p class="body-s">One scope, one price, one date. Nothing to renegotiate halfway through.</p>
+      <p class="body-s">One scope, one price, one go-live date. All agreed before work starts.</p>
     </div>
 
     <div class="grid-3">
       <article class="card">
         <div class="card-num"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="20" height="20" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="3"/><path d="M8 3v4M16 3v4M3 11h18"/></svg></div>
-        <div class="body-l">Fourteen days to live</div>
-        <div class="body-s">Kickoff on day one, your site answering on your domain on day fourteen. The date is in the contract, not in a status update.</div>
+        <div class="body-l">Live in fourteen days</div>
+        <div class="body-s">Day one starts once the scope, source material and account access are ready. With feedback supplied on the agreed review dates, the site goes live on your domain fourteen days later.</div>
       </article>
 
       <article class="card">
         <div class="card-num"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="20" height="20" aria-hidden="true"><path d="M17 6.5A6 6 0 1 0 17 17.5"/><path d="M4 10.5h9M4 13.5h9"/></svg></div>
-        <div class="body-l">Fixed price, quoted first</div>
-        <div class="body-s">You get a written scope and a number before anything starts. No hourly billing, no change order for a paragraph rewrite.</div>
+        <div class="body-l">Fixed scope, fixed price</div>
+        <div class="body-s">You receive the agreed pages, features, go-live date and fixed price in writing before work starts. Complete websites start at 300 EUR.</div>
       </article>
 
       <article class="card">
         <div class="card-num"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="20" height="20" aria-hidden="true"><path d="M15.5 8.5a4 4 0 1 0-4 4"/><path d="M11.5 12.5 5 19v2.5h3v-2h2v-2h2l1.5-1.5"/></svg></div>
-        <div class="body-l">You own everything</div>
-        <div class="body-s">Repo, domain, hosting and analytics live in your accounts. Leave whenever you want and take all of it with you.</div>
-      </article>
-
-      <article class="card">
-        <div class="card-num"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="20" height="20" aria-hidden="true"><path d="M12 3 3 8l9 5 9-5-9-5Z"/><path d="m3 14 9 5 9-5"/></svg></div>
-        <div class="body-l">No page builder underneath</div>
-        <div class="body-s">Hand built pages, no template plugin stack to keep paying for. What ships is what runs.</div>
+        <div class="body-l">Set up in your accounts</div>
+        <div class="body-s">Your domain, hosting and analytics are set up in accounts you control, and you receive the site code. No retainer is required after the site goes live.</div>
       </article>
 
       <article class="card">
         <div class="card-num"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="20" height="20" aria-hidden="true"><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L8 18l-4 1 1-4 11.5-11.5Z"/></svg></div>
         <div class="body-l">Copy included</div>
-        <div class="body-s">Words are part of the build, not homework you get handed on day twelve. English or Slovak.</div>
+        <div class="body-s">I write the site copy in English or Slovak from the information you provide. You approve it before design starts.</div>
       </article>
 
       <article class="card">
         <div class="card-num"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="20" height="20" aria-hidden="true"><path d="M20 7 10 17l-5-5"/></svg></div>
-        <div class="body-l">Two weeks of fixes</div>
-        <div class="body-s">Fourteen days of bug fixes after launch, included. Whatever breaks, I fix it.</div>
+        <div class="body-l">Fourteen days of bug fixes</div>
+        <div class="body-s">I fix bugs in the agreed site for fourteen days after it goes live. New pages, features and copy changes are quoted separately.</div>
       </article>
+
+      <p class="body-s excluded">
+        <span class="tag">Not included</span>
+        <span>Ongoing marketing, ad campaigns, SEO retainers, brand identity from zero, photography, or shops beyond a simple catalogue.</span>
+      </p>
     </div>
   </section>
 
@@ -1097,7 +1128,7 @@ footer a:hover { color: var(--text); }
           What does it cost?
           <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
         </summary>
-        <div class="answer">It depends on how many pages and how much of the content already exists, so I quote it after the call rather than posting a number that fits nobody. Half upfront, half on launch.</div>
+        <div class="answer">Complete websites start at 300 EUR. The final number depends on how many pages there are and how much of the content already exists, so you get the scope and a fixed price in writing after the call, before anything begins. Half upfront, half on launch.</div>
       </details>
 
       <details>
