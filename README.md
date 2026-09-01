@@ -23,36 +23,71 @@ python3 -m http.server 4317
 
 ```
 index.html              everything: markup, CSS, the three.js scene
-vendor/                 three.module.js + OrbitControls.js, pinned to r169
-fonts/                  Inter, variable, subset to the glyphs the page uses
+vendor/three.module.js  pinned to r169
+fonts/                  Inter (variable, subset) + Michroma (wordmark only)
 assets/moon-*.webp      NASA colour + elevation maps, see assets/CREDITS.md
-assets/work-*.webp      portfolio screenshots, 640x400
-assets/og.jpg           social card, regenerate after hero changes
+assets/work-*.webp      build log screenshots, 1280x800
+assets/og.jpg           social card, regenerate after any hero change
 ```
+
+## The rules this page is built on
+
+- **Every portfolio claim must be checkable.** One entry is a client launch;
+  the rest are labelled as redesigns, concepts or personal work, and each
+  redesign links the incumbent site it would replace. Do not soften these
+  labels. The incumbent is one click away and being caught is fatal.
+- **Michroma is for the wordmark only.** It has leaked into section numbering
+  before and was reverted. Everything else is Inter.
+- **Two visual weights for status**, filled and hollow. A third grade makes
+  four of six entries read as rejects.
+- **Cards are for the build log only.** Everything else is hairline rows. The
+  page had twenty identical boxes once; it is not going back.
 
 ## Things that will bite you
 
-- **The fonts are subsets.** `inter-latin.woff2` covers ASCII, Latin-1 and a
-  short list of punctuation; `inter-latin-ext.woff2` holds only `Š` and `š`.
-  Add copy with a character outside those and it silently falls back to the
-  system font. Re-subset with `pyftsubset` and widen the `unicode-range`.
-- **Google serves one variable file for every weight.** Do not download four.
-  The `@font-face` rules declare `font-weight: 300 600` and the `wght` axis
-  does the rest.
+- **The fonts are subsets.** `inter-latin.woff2` covers ASCII, Latin-1 and some
+  punctuation; `inter-latin-ext.woff2` covers the Slovak set only
+  (`U+010C-010F, U+0139-013A, U+013D-013E, U+0147-0148, U+0154-0155,
+  U+0160-0161, U+0164-0165, U+017D-017E`). Copy with a character outside those
+  silently falls back to the system font. Re-subset with `pyftsubset` and widen
+  the `unicode-range` together — widening only one of them does nothing.
+- **Arrow glyphs must be inline SVG.** Google's Inter latin subset has `U+2191`
+  and `U+2193` but no `U+2197`, so a `↗` character can never resolve. The link
+  arrow is drawn, not typed.
+- **The hero orbit is two SVGs around a transparent canvas.** `.orbit-back`
+  holds the far arc, `.orbit-front` the near one; the moon occludes the first
+  and is crossed by the second. Both share `viewBox="0 0 1000 1000"` and
+  `preserveAspectRatio="xMidYMid meet"`, which is what keeps them aligned with
+  zero JS. Change one viewBox and you must change both.
+- **The camera distance is derived, not fixed.** `resize()` solves for
+  `TARGET = 0.30`, the moon's radius as a fraction of `min(w, h)`, so the
+  sphere and the SVG ellipse scale together. Hard-coding `camera.position`
+  again will break the alignment at some viewport.
+- **The schedule draw-on uses `clip-path`, not `stroke-dasharray`.** With
+  `vector-effect: non-scaling-stroke` the dash unit is screen pixels, not
+  viewBox units, so any fixed dasharray truncates the curve at wide viewports.
+- **`.hero-stage` needs `width: 100%` on stacked layouts.** All of its children
+  are absolutely positioned, so with `margin-inline: auto` and a `max-width`
+  alone it shrinks to zero width and `aspect-ratio` then gives it zero height.
+- **Reduced motion is a global `animation: none !important`.** Any reveal whose
+  *base* state is hidden will stay hidden forever. Base states must be visible;
+  only put the hidden state inside `@media (prefers-reduced-motion: no-preference)`.
+- **The sticky bar keys off `boundingClientRect.top < 0`,** not merely
+  `!isIntersecting`, which is also true before you have reached the sentinel.
 - **three.js loads in `requestIdleCallback`,** so the planet appears after the
-  text. That is deliberate: it keeps 263 KB out of the first paint.
-- **The hero column spans the full width** for layout, so it carries
-  `pointer-events: none` with `auto` on its children. Without that it covers
-  the canvas and the planet stops responding to the mouse.
-- **`resize()` checks `window.innerWidth`, not the canvas width.** The canvas
-  is 62% of the viewport, so a canvas-width check silently puts desktop into
-  the mobile branch.
-- **The 3D scene has one shader loop over asteroids,** capped at
-  `INFLUENCE_COUNT = 24`. The asteroid array is sorted biggest-first, so the
-  first 24 are the ones worth simulating. Raising it costs
-  `particleCount * INFLUENCE_COUNT` vertex iterations per frame.
+  text. That is deliberate: it keeps ~263 KB gzipped out of the first paint.
 
-## Regenerating the OG card
+## Open follow-ups
+
+- The booking CTA still points at `cal.com/matuskalis/scoping-call`, whose event
+  is titled *AI Feature Sprint — Scoping Call*. Swap the slug once a
+  website-sprint event exists.
+- `assets/matus.webp` does not exist yet; the founder section renders an empty
+  photo slot until it does.
+- The scene is now a single lit sphere paying ~263 KB gzipped of three.js. A
+  hand-rolled sphere shader (~4 KB) would remove the largest asset on the site.
+
+## Regenerating the social card
 
 ```bash
 python3 -m http.server 4317
