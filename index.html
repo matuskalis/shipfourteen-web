@@ -474,11 +474,13 @@ footer a:hover { border-bottom-color: var(--text-3); }
   .founder { grid-template-columns: 1fr; }
   .portrait { max-width: 260px; }
 
-  /* the ellipse does not fit 320px, so the arc becomes a vertical rail */
+  /* the ellipse does not fit 320px, so the arc becomes a vertical rail.
+     block layout, not grid: the 12 column arithmetic fights the rail's
+     left padding and overflows by a few pixels at 320. */
   .track { display: none; }
-  .phases { position: relative; padding-left: 30px; row-gap: 0; }
+  .phases { display: block; position: relative; padding-left: 30px; row-gap: 0; }
   .phases::before { content: ""; position: absolute; left: 3px; top: 8px; bottom: 8px; width: 1px; background: var(--line); }
-  .phase { position: relative; padding: 0 0 30px; }
+  .phase { position: relative; display: flex; flex-direction: column; gap: 8px; padding: 0 0 30px; }
   .phase:last-child { padding-bottom: 0; }
   .phase::before {
     content: "";
@@ -492,6 +494,9 @@ footer a:hover { border-bottom-color: var(--text-3); }
   }
   .actions { width: 100%; }
   .actions .btn { width: 100%; }
+  /* the wordmark is nowrap, so at 320 it pushes the CTA past the shell.
+     the bar's job is the CTA; the mark gives way. */
+  .bar .logo { font-size: 10px; letter-spacing: 2.5px; }
   .bar .btn { padding: 0 14px; }
   .bar-full { display: none; }
   .bar-short { display: inline; }
