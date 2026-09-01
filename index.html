@@ -128,9 +128,12 @@ img, svg { display: block; max-width: 100%; }
 }
 
 .display-xl.closing {
-  font-size: 110px;
-  line-height: 1.1;
-  letter-spacing: -2.2px;
+  /* one line at every width: sized off the viewport rather than a fixed
+     110px, which broke "Let's ship yours" across two lines in a 700px box */
+  font-size: clamp(31px, 8.4vw, 150px);
+  white-space: nowrap;
+  line-height: 1.06;
+  letter-spacing: -0.03em;
   background-image: linear-gradient(162deg, rgba(255,255,255,0.9) 19%, rgba(255,255,255,0.1));
 }
 
@@ -667,8 +670,7 @@ body.dragging * {
 
 .closing {
   position: relative;
-  width: 700px;
-  max-width: 100%;
+  width: min(1240px, 100%);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -728,8 +730,6 @@ footer a:hover { color: var(--text); }
 @media (max-width: 991px) {
   .wrapper { gap: 120px; }
   .display-xl { font-size: 60px; letter-spacing: -2.2px; }
-  .display-xl.closing { font-size: 64px; }
-  .display-xl.closing { letter-spacing: -1.6px; }
   .display-l { font-size: 44px; letter-spacing: -0.9px; }
   .display-m { font-size: 30px; }
   .grid-3 { grid-template-columns: repeat(2, minmax(0, 1fr)); width: 100%; }
@@ -781,8 +781,6 @@ footer a:hover { color: var(--text); }
 
 @media (max-width: 600px) {
   .display-xl { font-size: 40px; letter-spacing: -1.6px; }
-  .display-xl.closing { font-size: 40px; }
-  .display-xl.closing { letter-spacing: -1.2px; }
   .display-l { font-size: 32px; letter-spacing: -0.6px; }
   .lead, .section-head .body-s { font-size: 17px; }
   .display-l { background-image: linear-gradient(7deg, #8E8DA0, #E9E8FD 60%); }
