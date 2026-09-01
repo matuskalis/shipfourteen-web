@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Review brief — shipfourteen.com</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root { --bg:#0A0C12; --panel:#121114; --line:#2D2B31; --t1:#fff; --t2:#E2E6EC; --t3:#8D8D9C; }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { background:var(--bg); color:var(--t3); font-family:Inter,-apple-system,sans-serif;
+         font-size:15px; line-height:1.65; padding:44px 32px 90px; }
+  .wrap { max-width:860px; margin-inline:auto; }
+  h1 { color:var(--t1); font-size:26px; font-weight:600; letter-spacing:-.5px; margin-bottom:10px; }
+  h2 { color:var(--t1); font-size:19px; font-weight:600; letter-spacing:-.2px; margin:40px 0 12px;
+       padding-top:22px; border-top:1px solid var(--line); }
+  h3 { color:var(--t2); font-size:16px; font-weight:600; margin:22px 0 8px; }
+  p { margin:12px 0; }
+  b { color:var(--t2); font-weight:600; }
+  i { color:var(--t2); font-style:italic; }
+  a { color:var(--t1); }
+  code { font-family:ui-monospace,SFMono-Regular,Menlo,monospace; font-size:13px;
+         background:var(--panel); border:1px solid var(--line); border-radius:3px; padding:1px 5px; color:var(--t2); }
+  ul, ol { margin:12px 0 12px 22px; }
+  li { margin:8px 0; }
+  table { width:100%; border-collapse:collapse; margin:18px 0; font-size:14px; }
+  th { text-align:left; color:var(--t2); font-weight:600; font-size:11px; letter-spacing:.1em;
+       text-transform:uppercase; padding:9px 14px 9px 0; border-bottom:1px solid var(--line); }
+  td { padding:10px 14px 10px 0; border-bottom:1px solid var(--line); vertical-align:top; }
+  .strip { display:flex; gap:14px; overflow-x:auto; padding:4px 0 14px; }
+  figure { flex:none; }
+  figure img { display:block; border:1px solid var(--line); border-radius:6px; background:#04060D; }
+  .d img { width:460px; }
+  .p img { width:220px; }
+  figcaption { margin-top:6px; font-size:10px; letter-spacing:.08em; color:var(--t3); }
+  .full { max-width:1400px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+<h1>Review brief: shipfourteen.com</h1>
+<p>You are reviewing a live one-page marketing site. Read this brief before reporting anything. Its purpose is to stop you spending findings on decisions that are deliberate and on defects that are already known.</p>
+<ul><li><b>Live site:</b> <a href="https://shipfourteen.com">https://shipfourteen.com</a></li><li><b>This deployment serves the same build at <code>/</code></b>, so you can inspect the real page rather than screenshots. Screenshots in <code>/review/</code> are for convenience only; the page itself is the source of truth.</li><li><b>Source:</b> one self-contained <code>index.html</code>, no build step, no framework. Vanilla three.js for the moon, pinned to r169 and self-hosted.</li></ul>
+<h2>What the business is</h2>
+<p>ShipFourteen sells one thing: a complete website, designed and built in fourteen days, fixed scope and fixed price. It is run by one person, Matúš Kališ. There is no team. Buyers are small and mid-sized businesses.</p>
+<h2>Why this version exists</h2>
+<p>A previous version of this page claimed <i>&quot;Every one of these is live, open any of them&quot;</i> about six portfolio entries, when only one is a paying client&#x27;s live site. That sentence was false and it was the reason for the rewrite. The whole page is now built around claims a sceptical reader can check.</p>
+<h2>Ground truth about the portfolio</h2>
+<p>This is the fact base. If any label on the page overstates any of this, that is a real finding and the most important kind.</p>
+<table><tr><th>Entry</th><th>Linked from the page</th><th>The real official site</th><th>Correct label</th></tr><tr><td>Sentinel VI Foundation</td><td>sentinel-vi.org</td><td>same</td><td>Client launch</td></tr><tr><td>VALORtech.AI</td><td>valortech-ai.vercel.app</td><td>www.valortech.ai (different, older)</td><td>Unlaunched redesign</td></tr><tr><td>Tharseo IT</td><td>tharseo-it.vercel.app</td><td>tharseoit.com (different)</td><td>Unlaunched redesign</td></tr><tr><td>SPPK</td><td>sppk-redesign.vercel.app</td><td>sppk.sk (different, live)</td><td>Unlaunched redesign</td></tr><tr><td>Petržalská posilka</td><td>petrzalska-posilka.vercel.app</td><td>none</td><td>Concept, built speculatively</td></tr><tr><td>matuskalis.com</td><td>matuskalis.com</td><td>same</td><td>Personal project</td></tr></table>
+<p>There are <b>no testimonials and no measured results</b>, because none exist. Nothing on the page may imply otherwise. Each unlaunched redesign deliberately links the incumbent site it would replace, so the reader can compare.</p>
+<h2>Deliberate decisions — do not report these as defects</h2>
+<ol><li><b>Only one client launch is shown, and the page says so in its own words.</b> Volunteering that up front is the strategy, not an oversight.</li><li><b>No per-project build durations.</b> The owner offered a blanket &quot;14 days&quot;, but stamping one number on a large content site and a one-page gym site would repeat the exact error this rewrite exists to fix. The column is omitted until real per-project numbers exist.</li><li><b>&quot;From 300 EUR&quot; sits in the Investment section, not the hero.</b> Publishing a floor price was the owner&#x27;s explicit decision, taken against advice that it undercuts the positioning. Do not re-litigate whether to show a price; you may comment on how it is framed.</li><li><b>The moon canvas is decorative</b>: <code>aria-hidden=&quot;true&quot;</code>, no <code>tabindex</code>, not a tab stop. Its click interaction was removed, so a focus stop with no payoff would only waste a keyboard user&#x27;s time.</li><li><b>The page is long</b> — 10 199 px on desktop, 13 304 px on a phone. Eleven sections was the agreed scope. Comment on whether the middle earns its scroll, but length alone is not a bug.</li><li><b>three.js is ~263 KB gzipped for a single lit sphere.</b> Known trade. It is loaded inside <code>requestIdleCallback</code> so it stays out of the first paint. A hand-rolled shader is filed as a follow-up, not an oversight.</li><li><b>Michroma is used only on the wordmark.</b> Anywhere else is a regression.</li><li><b>Radius is 2–3 px and there are no gradients or pill buttons.</b> This is a deliberate reversal of the previous design, not an unfinished state.</li></ol>
+<h2>Known open items — already logged, no need to report</h2>
+<ul><li>The booking CTA points at <code>cal.com/matuskalis/scoping-call</code>. The event is now titled <i>Website build — Scoping Call</i>, but its <b>description still mentions picking an AI feature</b>, left over from a previous offer. The owner has to fix that in Cal.com; it is not in this codebase.</li><li>The footer email is a personal Gmail rather than a domain address.</li><li>No per-project build durations, as above.</li></ul>
+<h2>Verification already performed — do not spend effort repeating</h2>
+<p>Run against production after deploy, walking the full page height at every width rather than measuring only at scroll top:</p>
+<table><tr><th>Check</th><th>Result</th></tr><tr><td>Horizontal overflow at 320 / 390 / 768 / 1440</td><td>0 px at every scroll position</td></tr><tr><td>Interactive elements under 40 px tall</td><td>0</td></tr><tr><td>Broken images</td><td>0</td></tr><tr><td>Console errors</td><td>0</td></tr><tr><td>Every outbound link</td><td>all 200</td></tr><tr><td>Keyboard tab order</td><td>every stop has a visible 2 px focus ring</td></tr><tr><td>Canvas in tab order</td><td>no, by design</td></tr><tr><td><code>prefers-reduced-motion</code></td><td>schedule curve fully drawn, orbit animation off</td></tr><tr><td>Slovak diacritics (<code>ž č ť ľ š ú</code>)</td><td>resolve in Inter, not a fallback font</td></tr></table>
+<h2>What is actually worth your attention</h2>
+<ol><li><b>Does any claim on the page overstate the ground truth above?</b> Read every sentence in the build log, the founder section and the FAQ against the table. This is the highest-value thing you can find.</li><li><b>Does the honesty read as confidence or as apology?</b> The page leads with its weakest fact. Judge whether that lands as credible or as self-defeating, and quote the specific sentences that decide it.</li><li><b>Is the fourteen-day promise consistent everywhere?</b> The schedule says the clock starts after the scoping call. Check nothing elsewhere contradicts that, including the manifest and the FAQ.</li><li><b>Would a sceptical buyer&#x27;s next question go unanswered?</b> Name the question and where it should have been answered.</li><li><b>Correctness bugs</b> in the CSS or the three.js module that the checks above would not catch.</li></ol>
+<p>Report findings with a file and line where the defect is in code, or the exact on-page sentence where it is in copy. A clean review with no findings is a valid outcome.</p>
+<p><i>Same text as plain markdown, easier to fetch: <a href="./brief.md">brief.md</a></i></p>
+</div>
+<div class="wrap full">
+<h2>Desktop 1440</h2>
+<div class="strip">
+<figure class="d"><img src="./shots/d-00.jpeg" loading="lazy" alt="Desktop 1440 screen 00"><figcaption>00</figcaption></figure>
+<figure class="d"><img src="./shots/d-01.jpeg" loading="lazy" alt="Desktop 1440 screen 01"><figcaption>01</figcaption></figure>
+<figure class="d"><img src="./shots/d-02.jpeg" loading="lazy" alt="Desktop 1440 screen 02"><figcaption>02</figcaption></figure>
+<figure class="d"><img src="./shots/d-03.jpeg" loading="lazy" alt="Desktop 1440 screen 03"><figcaption>03</figcaption></figure>
+<figure class="d"><img src="./shots/d-04.jpeg" loading="lazy" alt="Desktop 1440 screen 04"><figcaption>04</figcaption></figure>
+<figure class="d"><img src="./shots/d-05.jpeg" loading="lazy" alt="Desktop 1440 screen 05"><figcaption>05</figcaption></figure>
+<figure class="d"><img src="./shots/d-06.jpeg" loading="lazy" alt="Desktop 1440 screen 06"><figcaption>06</figcaption></figure>
+<figure class="d"><img src="./shots/d-07.jpeg" loading="lazy" alt="Desktop 1440 screen 07"><figcaption>07</figcaption></figure>
+<figure class="d"><img src="./shots/d-08.jpeg" loading="lazy" alt="Desktop 1440 screen 08"><figcaption>08</figcaption></figure>
+<figure class="d"><img src="./shots/d-09.jpeg" loading="lazy" alt="Desktop 1440 screen 09"><figcaption>09</figcaption></figure>
+<figure class="d"><img src="./shots/d-10.jpeg" loading="lazy" alt="Desktop 1440 screen 10"><figcaption>10</figcaption></figure>
+<figure class="d"><img src="./shots/d-11.jpeg" loading="lazy" alt="Desktop 1440 screen 11"><figcaption>11</figcaption></figure>
+</div>
+<h2>Phone 390</h2>
+<div class="strip">
+<figure class="p"><img src="./shots/p-00.jpeg" loading="lazy" alt="Phone 390 screen 00"><figcaption>00</figcaption></figure>
+<figure class="p"><img src="./shots/p-01.jpeg" loading="lazy" alt="Phone 390 screen 01"><figcaption>01</figcaption></figure>
+<figure class="p"><img src="./shots/p-02.jpeg" loading="lazy" alt="Phone 390 screen 02"><figcaption>02</figcaption></figure>
+<figure class="p"><img src="./shots/p-03.jpeg" loading="lazy" alt="Phone 390 screen 03"><figcaption>03</figcaption></figure>
+<figure class="p"><img src="./shots/p-04.jpeg" loading="lazy" alt="Phone 390 screen 04"><figcaption>04</figcaption></figure>
+<figure class="p"><img src="./shots/p-05.jpeg" loading="lazy" alt="Phone 390 screen 05"><figcaption>05</figcaption></figure>
+<figure class="p"><img src="./shots/p-06.jpeg" loading="lazy" alt="Phone 390 screen 06"><figcaption>06</figcaption></figure>
+<figure class="p"><img src="./shots/p-07.jpeg" loading="lazy" alt="Phone 390 screen 07"><figcaption>07</figcaption></figure>
+<figure class="p"><img src="./shots/p-08.jpeg" loading="lazy" alt="Phone 390 screen 08"><figcaption>08</figcaption></figure>
+<figure class="p"><img src="./shots/p-09.jpeg" loading="lazy" alt="Phone 390 screen 09"><figcaption>09</figcaption></figure>
+<figure class="p"><img src="./shots/p-10.jpeg" loading="lazy" alt="Phone 390 screen 10"><figcaption>10</figcaption></figure>
+<figure class="p"><img src="./shots/p-11.jpeg" loading="lazy" alt="Phone 390 screen 11"><figcaption>11</figcaption></figure>
+<figure class="p"><img src="./shots/p-12.jpeg" loading="lazy" alt="Phone 390 screen 12"><figcaption>12</figcaption></figure>
+<figure class="p"><img src="./shots/p-13.jpeg" loading="lazy" alt="Phone 390 screen 13"><figcaption>13</figcaption></figure>
+<figure class="p"><img src="./shots/p-14.jpeg" loading="lazy" alt="Phone 390 screen 14"><figcaption>14</figcaption></figure>
+<figure class="p"><img src="./shots/p-15.jpeg" loading="lazy" alt="Phone 390 screen 15"><figcaption>15</figcaption></figure>
+<figure class="p"><img src="./shots/p-16.jpeg" loading="lazy" alt="Phone 390 screen 16"><figcaption>16</figcaption></figure>
+</div>
+</div>
+</body>
+</html>
