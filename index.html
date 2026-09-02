@@ -513,62 +513,58 @@ body.dragging * {
   gap: var(--s-3);
 }
 
-/* ---------- statement card ---------- */
+/* ---------- what you get: ledger ---------- */
 
-.section.wide { width: 1048px; }
-
-.statement {
+/* No boxes here on purpose: the build log above is the only place that gets
+   cards, so this section reads as a list of line items instead. */
+.ledger {
   width: 100%;
-  display: flex;
-  flex-direction: row;
-  align-items: flex-start;
-  justify-content: space-between;
-  gap: var(--s-7);
-  padding: 72px 64px;
-  border-radius: var(--r-card);
-  background: var(--surface);
-  border: 1px solid var(--line);
+  display: grid;
+  grid-template-columns: 280px minmax(0, 1fr);
+  gap: 56px;
   text-align: left;
 }
 
-.statement .display-l {
-  font-size: 62px;
-  line-height: 0.98;
-  letter-spacing: -2.4px;
-  padding-bottom: 4px;
-  flex: none;
+.ledger-side { position: sticky; top: 40px; align-self: start; }
+
+.ledger-count {
+  font-size: 132px;
+  font-weight: 600;
+  line-height: 0.86;
+  letter-spacing: -6px;
+  background-image: linear-gradient(7deg, #4A4956, #E9E8FD 78%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
 }
 
-.statement .body-s {
-  font-size: 17px;
-  line-height: 1.6;
-  max-width: 420px;
-  color: var(--text-3);
-  padding-top: 10px;
-}
+.ledger-side .body-s { margin-top: var(--s-3); max-width: 250px; }
 
-/* ---------- what you get: two primary, three secondary ---------- */
-
-/* This section leaves the fixed 304px track behind: the first two claims
-   decide the sale, so they get more room than the other three. */
-#what-you-get .grid-3 {
-  width: 100%;
-  grid-template-columns: repeat(6, minmax(0, 1fr));
-  justify-content: stretch;
-}
-#what-you-get .card { grid-column: span 2; min-width: 0; }
-#what-you-get .card:nth-child(-n + 2) { grid-column: span 3; }
-
-.excluded {
-  grid-column: 1 / -1;
-  display: flex;
-  align-items: flex-start;
+.ledger-row {
+  display: grid;
+  grid-template-columns: 22px 1fr;
   gap: var(--s-3);
-  min-width: 0;
-  text-align: left;
-  padding-top: var(--s-2);
+  align-items: start;
+  padding: 22px 0;
+  border-top: 1px solid var(--line);
 }
-.excluded .tag { flex: none; }
+.ledger-row:first-child { border-top: 0; padding-top: 0; }
+.ledger-row .body-l { font-size: 18px; font-weight: 500; margin-bottom: 4px; }
+.ledger-row > svg { width: 22px; height: 22px; color: var(--text); }
+
+.ledger-out {
+  margin-top: var(--s-4);
+  padding-top: var(--s-4);
+  border-top: 1px solid var(--surface-top);
+}
+.ledger-out .body-s {
+  display: grid;
+  grid-template-columns: 22px 1fr;
+  gap: var(--s-3);
+  align-items: start;
+  padding: 7px 0;
+}
+.ledger-out svg { width: 22px; height: 22px; color: #56545F; }
 
 /* ---------- fourteen days ---------- */
 
@@ -756,17 +752,10 @@ footer a:hover { color: var(--text); }
   .display-l { font-size: 44px; letter-spacing: -0.9px; }
   .display-m { font-size: 30px; }
   .grid-3 { grid-template-columns: repeat(2, minmax(0, 1fr)); width: 100%; }
-  #what-you-get .grid-3 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  #what-you-get .card, #what-you-get .card:nth-child(-n + 2) { grid-column: auto; }
-  /* five cards over two columns leaves the last one orphaned beside a hole,
-     so it closes the row instead */
-  #what-you-get .card:nth-child(-n + 2),
-  #what-you-get .card:last-of-type:nth-of-type(odd) { grid-column: 1 / -1; }
+  .ledger { grid-template-columns: minmax(0, 1fr); gap: var(--s-6); }
+  .ledger-side { position: static; }
+  .ledger-count { font-size: 104px; letter-spacing: -4px; }
   .phases { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .section.wide { width: 1000px; }
-  .statement { flex-direction: column; gap: var(--s-4); padding: 48px 32px; }
-  .statement .display-l { font-size: 48px; letter-spacing: -1.8px; }
-  .statement .body-s { padding-top: 0; max-width: 100%; }
   .grid-2 { grid-template-columns: minmax(0, 1fr); width: 100%; }
   .section { gap: var(--s-5); }
   /* stacked: planet on top, everything under it centred */
@@ -814,9 +803,7 @@ footer a:hover { color: var(--text); }
   .lead, .section-head .body-s { font-size: 17px; }
   .display-l { background-image: linear-gradient(7deg, #8E8DA0, #E9E8FD 60%); }
   .grid-3 { grid-template-columns: minmax(0, 1fr); }
-  #what-you-get .grid-3 { grid-template-columns: minmax(0, 1fr); }
-  #what-you-get .card:nth-child(-n + 2) { grid-column: auto; }
-  .excluded { flex-direction: column; gap: var(--s-2); }
+  .ledger-count { font-size: 88px; }
   /* a 1000:100 arc is unreadable at this width, so it becomes a rail */
   .track { display: none; }
   .phases {
@@ -843,9 +830,7 @@ footer a:hover { color: var(--text); }
     background: var(--text);
   }
   .day0 { justify-content: flex-start; text-align: left; }
-  .statement { padding: 40px 24px; }
   .hero-stage { height: clamp(240px, calc(100svh - 176px), 820px); }
-  .statement .display-l { font-size: 38px; letter-spacing: -1.4px; }
   .buttons { width: 100%; flex-direction: column; align-items: stretch; }
   .btn { width: 100%; }
   .wrapper { gap: 96px; }
@@ -983,14 +968,6 @@ footer a:hover { color: var(--text); }
     <a class="btn btn-ghost" href="https://cal.com/matuskalis/scoping-call" target="_blank" rel="noopener">Ask for the full portfolio</a>
   </section>
 
-  <!-- statement -->
-  <section class="section wide" id="craft">
-    <div class="statement">
-      <h2 class="display-l">Two people,<br>start to finish.</h2>
-      <p class="body-s">ShipFourteen is two of us, based in Bratislava, working in English and Slovak. We scope, write, design and build every site ourselves. The fourteen-day schedule works because the scope is agreed before work starts and the two people doing the work are the two people you spoke to on the call.</p>
-    </div>
-  </section>
-
   <!-- what you get -->
   <section class="section" id="what-you-get">
     <div class="section-head">
@@ -998,41 +975,59 @@ footer a:hover { color: var(--text); }
       <p class="body-s">One scope, one price, one go-live date. All agreed before work starts.</p>
     </div>
 
-    <div class="grid-3">
-      <article class="card">
-        <div class="card-num"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="20" height="20" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="3"/><path d="M8 3v4M16 3v4M3 11h18"/></svg></div>
-        <div class="body-l">Live in fourteen days</div>
-        <div class="body-s">Day one starts once the scope, source material and account access are ready. With feedback supplied on the agreed review dates, the site goes live on your domain fourteen days later.</div>
-      </article>
+    <div class="ledger">
+      <div class="ledger-side">
+        <div class="ledger-count">05</div>
+        <p class="body-s">Everything in the fixed price. Nothing invoiced afterwards unless you ask for something new.</p>
+      </div>
 
-      <article class="card">
-        <div class="card-num"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="20" height="20" aria-hidden="true"><path d="M17 6.5A6 6 0 1 0 17 17.5"/><path d="M4 10.5h9M4 13.5h9"/></svg></div>
-        <div class="body-l">Fixed scope, fixed price</div>
-        <div class="body-s">You receive the agreed pages, features, go-live date and fixed price in writing before work starts. Complete websites start at 300 EUR.</div>
-      </article>
+      <div>
+        <div class="ledger-row">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 7 10 17l-5-5"/></svg>
+          <div>
+            <div class="body-l">Live in fourteen days</div>
+            <div class="body-s">Day one starts once the scope, source material and account access are ready. With feedback on the agreed review dates, the site goes live on your domain fourteen days later.</div>
+          </div>
+        </div>
 
-      <article class="card">
-        <div class="card-num"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="20" height="20" aria-hidden="true"><path d="M15.5 8.5a4 4 0 1 0-4 4"/><path d="M11.5 12.5 5 19v2.5h3v-2h2v-2h2l1.5-1.5"/></svg></div>
-        <div class="body-l">Set up in your accounts</div>
-        <div class="body-s">Your domain, hosting and analytics are set up in accounts you control, and you receive the site code. No retainer is required after the site goes live.</div>
-      </article>
+        <div class="ledger-row">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 7 10 17l-5-5"/></svg>
+          <div>
+            <div class="body-l">Fixed scope, fixed price</div>
+            <div class="body-s">Pages, features, go-live date and price in writing before work starts. Complete websites start at 300 EUR.</div>
+          </div>
+        </div>
 
-      <article class="card">
-        <div class="card-num"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="20" height="20" aria-hidden="true"><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L8 18l-4 1 1-4 11.5-11.5Z"/></svg></div>
-        <div class="body-l">Copy included</div>
-        <div class="body-s">We write the site copy in English or Slovak from the information you provide. You approve it before design starts.</div>
-      </article>
+        <div class="ledger-row">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 7 10 17l-5-5"/></svg>
+          <div>
+            <div class="body-l">Set up in your accounts</div>
+            <div class="body-s">Domain, hosting and analytics in accounts you control, plus the site code. No retainer after launch.</div>
+          </div>
+        </div>
 
-      <article class="card">
-        <div class="card-num"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="20" height="20" aria-hidden="true"><path d="M20 7 10 17l-5-5"/></svg></div>
-        <div class="body-l">Fourteen days of bug fixes</div>
-        <div class="body-s">We fix bugs in the agreed site for fourteen days after it goes live. New pages, features and copy changes are quoted separately.</div>
-      </article>
+        <div class="ledger-row">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 7 10 17l-5-5"/></svg>
+          <div>
+            <div class="body-l">Copy included</div>
+            <div class="body-s">We write the site copy in English or Slovak from what you provide. You approve it before design starts.</div>
+          </div>
+        </div>
 
-      <p class="body-s excluded">
-        <span class="tag">Not included</span>
-        <span>Ongoing marketing, ad campaigns, SEO retainers, brand identity from zero, photography, or shops beyond a simple catalogue.</span>
-      </p>
+        <div class="ledger-row">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 7 10 17l-5-5"/></svg>
+          <div>
+            <div class="body-l">Fourteen days of bug fixes</div>
+            <div class="body-s">Bugs fixed for fourteen days after launch. New pages, features and copy changes are quoted separately.</div>
+          </div>
+        </div>
+
+        <div class="ledger-out">
+          <p class="body-s"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg><span>Ongoing marketing, ad campaigns and SEO retainers</span></p>
+          <p class="body-s"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg><span>Brand identity from zero, and photography</span></p>
+          <p class="body-s"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg><span>Shops beyond a simple catalogue</span></p>
+        </div>
+      </div>
     </div>
   </section>
 
