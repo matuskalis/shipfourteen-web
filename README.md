@@ -2,6 +2,10 @@
 
 Static site. One `index.html`, no build step, no framework.
 
+![The shipfourteen.com hero: a three.js moon on the right, headline and client strip on the left](docs/hero.jpg)
+
+Live at **https://shipfourteen.com**.
+
 ## Deploy
 
 ```bash
@@ -99,3 +103,10 @@ sips -s format jpeg -s formatOptions 82 og-raw.png --out assets/og.jpg
 
 The AI Feature Sprint site is still deployed at `shipfourteen-site.vercel.app`
 (project `shipfourteen-site`). It no longer holds the apex domain.
+
+## Licence
+
+The code in this repository is MIT (see `LICENSE`). That does not extend to
+the ShipFourteen wordmark, the copy, the client screenshots in `assets/work-*`
+or the photograph in `assets/matus.webp`. The moon maps are NASA source under
+the terms recorded in `assets/CREDITS.md`.
